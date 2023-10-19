@@ -2,6 +2,10 @@
 
 A new Flutter project.
 
+##Figma UI Design Link
+
+https://www.figma.com/file/eUHTrq1mFy53ar0ckffluJ/Untitled?type=design&node-id=0%3A1&mode=design&t=8MTV5znidyQWCzF5-1
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
