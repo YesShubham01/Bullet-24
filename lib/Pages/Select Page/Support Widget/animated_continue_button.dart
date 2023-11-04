@@ -20,8 +20,9 @@ class _AnimatedContinueButtonState extends State<AnimatedContinueButton> {
         width: widget.active ? 329 : 310,
         height: widget.active ? 60 : 50,
         decoration: ShapeDecoration(
-          color:
-              widget.active ? const Color(0xFF4E80D0) : const Color(0xFFA7B3C6),
+          color: widget.active
+              ? const Color.fromARGB(255, 81, 133, 219)
+              : const Color(0xFFA7B3C6),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
@@ -40,7 +41,7 @@ class _AnimatedContinueButtonState extends State<AnimatedContinueButton> {
           child: Text(
             'Continue',
             style: TextStyle(
-              color: Color(0xFFD1DAE7),
+              color: Color(0xFFEDEEF0),
               fontSize: 26,
               fontFamily: 'Inter',
               fontWeight: FontWeight.w500,

@@ -23,8 +23,8 @@ class _OptionBuyState extends State<OptionBuy> {
             height: widget.active ? 140 : 120,
             decoration: ShapeDecoration(
               color: widget.active
-                  ? const Color(0xFFA5C4F4)
-                  : const Color(0xFFD4DFEF),
+                  ? const Color.fromARGB(255, 210, 223, 243)
+                  : const Color(0xFFEDEEF0),
               shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20),
               ),

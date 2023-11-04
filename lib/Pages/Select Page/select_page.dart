@@ -23,49 +23,38 @@ class _SelectPageState extends State<SelectPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        // background Gradient
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment(0.00, -1.00),
-            end: Alignment(0, 1),
-            colors: [Color(0xFFCDE0FF), Color(0xFFE2E7EF)],
-          ),
-        ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            //logo
+            const TopLeftLogo(),
 
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              //logo
-              const TopLeftLogo(),
+            //title
+            const TitleBlueTint(text: "What would you like to do?\n"),
 
-              //title
-              const TitleBlueTint(text: "What would you like to do?\n"),
+            //option 1 buy
+            OptionBuy(
+              active: _buy_status,
+              onTap: option_buy_onTap,
+            ),
 
-              //option 1 buy
-              OptionBuy(
-                active: _buy_status,
-                onTap: option_buy_onTap,
-              ),
+            //option 2 sell
+            OptionSell(
+              active: _sell_status,
+              onTap: option_sell_onTap,
+            ),
 
-              //option 2 sell
-              OptionSell(
-                active: _sell_status,
-                onTap: option_sell_onTap,
-              ),
+            // continue Button
 
-              // continue Button
+            AnimatedContinueButton(
+                active: _button_active, onTap: continue_button_ontap),
 
-              AnimatedContinueButton(
-                  active: _button_active, onTap: continue_button_ontap),
-
-              const SizedBox(
-                height: 60,
-              ),
-            ],
-          ),
+            const SizedBox(
+              height: 60,
+            ),
+          ],
         ),
       ),
     );

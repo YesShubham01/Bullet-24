@@ -19,7 +19,6 @@ class _FilterWidgetState extends State<FilterWidget> {
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width - 25;
-    double height = MediaQuery.of(context).size.height;
     return GestureDetector(
       onTap: _temp,
       child: Align(
@@ -54,15 +53,24 @@ class FilterOptions extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
-      child: Column(
-        children: [
-          Text("Option"),
-          Text("Option"),
-          Text("Option"),
-          Text("Option"),
-        ],
-      ),
+    return FutureBuilder(
+      future: Future.delayed(const Duration(milliseconds: 250)),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Icon(Icons.filter_list);
+        } else {
+          return const Center(
+            child: Column(
+              children: [
+                Text("Option"),
+                Text("Option"),
+                Text("Option"),
+                Text("Option"),
+              ],
+            ),
+          );
+        }
+      },
     );
   }
 }
