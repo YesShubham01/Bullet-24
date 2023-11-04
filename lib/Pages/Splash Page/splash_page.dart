@@ -1,8 +1,7 @@
-import 'package:bullet24/Pages/Start%20Page/start_page.dart';
+import 'package:bullet24/Pages/Select%20Page/select_page.dart';
+import 'package:bullet24/Res/Widget/logo_animated.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
-
-import 'bullet_animation.dart';
 
 class SplashPage extends StatefulWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -22,7 +21,7 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => const StartPage(),
+            builder: (context) => const SelectPage(),
           ),
         );
       },
@@ -34,7 +33,7 @@ class _SplashPageState extends State<SplashPage> {
     return Scaffold(
       backgroundColor: BG_THEME_COLOR,
       body: const Center(
-        child: Hero(tag: 'bullet', child: BulletAnimation()),
+        child: AnimatedBulletLogo(),
       ),
     );
   }

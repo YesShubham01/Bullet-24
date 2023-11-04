@@ -27,42 +27,45 @@ class _BulletAnimationState extends State<BulletAnimation>
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned(
-          left: 225,
-          top: 115,
-          child: RotationTransition(
-            turns: _controller, // Use the animation controller for rotation
-            child: const SizedBox(
-              height: 110,
-              child: Image(
-                image: AssetImage("images/SplashPage/front_wheel.PNG"),
+    return DecoratedBox(
+      decoration: const BoxDecoration(),
+      child: Stack(
+        children: [
+          Positioned(
+            left: 225,
+            top: 115,
+            child: RotationTransition(
+              turns: _controller, // Use the animation controller for rotation
+              child: const SizedBox(
+                height: 110,
+                child: Image(
+                  image: AssetImage("images/SplashPage/front_wheel.PNG"),
+                ),
               ),
             ),
           ),
-        ),
-        Positioned(
-          left: 21,
-          top: 110,
-          child: RotationTransition(
-            turns:
-                _controller, // Use the same animation controller for both wheels
-            child: const SizedBox(
-              height: 120,
-              child: Image(
-                image: AssetImage("images/SplashPage/front_wheel.PNG"),
+          Positioned(
+            left: 21,
+            top: 110,
+            child: RotationTransition(
+              turns:
+                  _controller, // Use the same animation controller for both wheels
+              child: const SizedBox(
+                height: 120,
+                child: Image(
+                  image: AssetImage("images/SplashPage/front_wheel.PNG"),
+                ),
               ),
             ),
           ),
-        ),
-        const Image(
-          image: AssetImage("images/SplashPage/bullet_without_rim.PNG"),
-        ),
-        // const Image(
-        //   image: AssetImage("images/SplashPage/road.PNG"),
-        // ),
-      ],
+          const Image(
+            image: AssetImage("images/SplashPage/bullet_without_rim.PNG"),
+          ),
+          // const Image(
+          //   image: AssetImage("images/SplashPage/road.PNG"),
+          // ),
+        ],
+      ),
     );
   }
 
