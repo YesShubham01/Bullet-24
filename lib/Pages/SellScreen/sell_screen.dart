@@ -1,4 +1,5 @@
 import 'package:bullet24/Pages/SellScreen/Home%20Page/seller_homepage.dart';
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class SellScreen extends StatefulWidget {
@@ -26,7 +27,7 @@ class _SellScreenState extends State<SellScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 218, 243, 255),
+      backgroundColor: BS_button_active_color,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Bullet 24"),
@@ -64,8 +65,8 @@ class _SellScreenState extends State<SellScreen> {
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black45,
+          selectedItemColor: B_TNAV_COLOR,
+          unselectedItemColor: B_BNAV_COLOR,
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),

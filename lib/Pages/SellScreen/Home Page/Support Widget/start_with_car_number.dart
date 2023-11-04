@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class StartSellingWithCarNumber extends StatefulWidget {
@@ -43,10 +44,10 @@ class _StartSellingWithCarNumberState extends State<StartSellingWithCarNumber> {
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:
-                    Colors.blue, // Set button background color to blue
-                foregroundColor: Colors.white,
+                    B_TNAV_COLOR, // Set button background color to blue
+                foregroundColor: BS_FSG_button_false_color,
                 elevation: 4, // Set elevation (shadow) for the button
-                shadowColor: const Color(0xFF496A9F), // Set shadow color
+                shadowColor: shadow_false, // Set shadow color
               ),
               child: const Text(
                 'GET CAR PRICE',

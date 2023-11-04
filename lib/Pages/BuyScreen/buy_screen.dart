@@ -1,6 +1,7 @@
 import 'package:bullet24/Pages/BuyScreen/Favourite%20Page/favourite_page.dart';
 import 'package:bullet24/Pages/BuyScreen/Home%20Page/homepage.dart';
 import 'package:bullet24/Pages/BuyScreen/Profile%20Page/profile_page.dart';
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class BuyScreen extends StatefulWidget {
@@ -69,8 +70,8 @@ class _BuyScreenState extends State<BuyScreen> {
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black45,
+          selectedItemColor:B_TNAV_COLOR,
+          unselectedItemColor: B_BNAV_COLOR,
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),
