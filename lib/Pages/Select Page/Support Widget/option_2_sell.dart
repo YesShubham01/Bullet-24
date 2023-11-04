@@ -12,84 +12,87 @@ class OptionSell extends StatefulWidget {
 class _OptionSellState extends State<OptionSell> {
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: widget.onTap,
-      child: Stack(
-        children: [
-          // this is background of the card.
-          AnimatedContainer(
-            duration: const Duration(milliseconds: 250),
-            width: widget.active ? 329 : 310,
-            height: widget.active ? 140 : 120,
-            decoration: ShapeDecoration(
-              color: widget.active
-                  ? const Color(0xFFA5C4F4)
-                  : const Color(0xFFD4DFEF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              shadows: [
-                BoxShadow(
-                  color: const Color(0xFF4D72AD),
-                  blurRadius: 4,
-                  offset: const Offset(-2, 6),
-                  spreadRadius: widget.active ? 5 : 1,
-                )
-              ],
-            ),
-          ),
-
-          // Title --> Buy
-          Positioned(
-            left: 30,
-            top: 18,
-            child: Text(
-              'Sell',
-              style: TextStyle(
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 30),
+      child: InkWell(
+        onTap: widget.onTap,
+        child: Stack(
+          children: [
+            // this is background of the card.
+            AnimatedContainer(
+              duration: const Duration(milliseconds: 250),
+              width: widget.active ? 329 : 310,
+              height: widget.active ? 140 : 120,
+              decoration: ShapeDecoration(
                 color: widget.active
-                    ? const Color(0xFF0A2E68)
-                    : const Color(0x99092D68),
-                fontSize: 40,
-                fontFamily: 'Inter',
-                fontWeight: FontWeight.w700,
-                height: 0,
+                    ? const Color.fromARGB(255, 210, 223, 243)
+                    : const Color(0xFFEDEEF0),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                shadows: [
+                  BoxShadow(
+                    color: const Color(0xFF4D72AD),
+                    blurRadius: 4,
+                    offset: const Offset(-2, 6),
+                    spreadRadius: widget.active ? 5 : 1,
+                  )
+                ],
               ),
             ),
-          ),
 
-          // Subtitle --> Choose from Certified Vehicals.
-          Positioned(
-            left: 30,
-            top: 69,
-            child: SizedBox(
-              width: 135,
-              height: 43,
+            // Title --> Buy
+            Positioned(
+              left: 30,
+              top: 18,
               child: Text(
-                'Get Best Price Online Instantly.',
+                'Sell',
                 style: TextStyle(
                   color: widget.active
-                      ? const Color(0xFF4D72AD)
-                      : const Color(0x994D72AD),
-                  fontSize: 16,
+                      ? const Color(0xFF0A2E68)
+                      : const Color(0x99092D68),
+                  fontSize: 40,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
                   height: 0,
                 ),
               ),
             ),
-          ),
 
-          // Sample image
-          Positioned(
-            right: 0,
-            top: 0,
-            child: Image.asset(
-              "images/SampleBike/sample2.png",
-              width: 163,
-              height: 120,
+            // Subtitle --> Choose from Certified Vehicals.
+            Positioned(
+              left: 30,
+              top: 69,
+              child: SizedBox(
+                width: 135,
+                height: 43,
+                child: Text(
+                  'Get Best Price Online Instantly.',
+                  style: TextStyle(
+                    color: widget.active
+                        ? const Color(0xFF4D72AD)
+                        : const Color(0x994D72AD),
+                    fontSize: 16,
+                    fontFamily: 'Inter',
+                    fontWeight: FontWeight.w700,
+                    height: 0,
+                  ),
+                ),
+              ),
             ),
-          ),
-        ],
+
+            // Sample image
+            Positioned(
+              right: 0,
+              top: 0,
+              child: Image.asset(
+                "images/SampleBike/sample2.png",
+                width: 163,
+                height: 120,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

@@ -13,13 +13,13 @@ class _StartSellingWithCarBrandState extends State<StartSellingWithCarBrand> {
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16.0),
+      padding: const EdgeInsets.symmetric(vertical: 16.0, horizontal: 10),
       child: Center(
         child: Container(
           width: width,
           height: 340,
           decoration: ShapeDecoration(
-            color: Colors.blue,
+            color: const Color(0xFFEDEEF0),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
@@ -27,7 +27,7 @@ class _StartSellingWithCarBrandState extends State<StartSellingWithCarBrand> {
               BoxShadow(
                 color: Color(0xFF496A9F),
                 blurRadius: 4,
-                offset: Offset(-2, 6),
+                offset: Offset(-2, -4),
                 spreadRadius: 0,
               )
             ],
@@ -37,7 +37,6 @@ class _StartSellingWithCarBrandState extends State<StartSellingWithCarBrand> {
               Text(
                 "Start with your vehical Brand",
                 style: TextStyle(
-                  color: Colors.white,
                   fontSize: 18,
                 ),
               )
