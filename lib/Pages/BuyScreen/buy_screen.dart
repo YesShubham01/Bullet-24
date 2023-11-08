@@ -14,20 +14,16 @@ class BuyScreen extends StatefulWidget {
 class _BuyScreenState extends State<BuyScreen> {
   int _selectedIndex = 0;
 
+  final List<Widget> _pages = const [
+    HomePage(),
+    FavouritePage(),
+    ProfilePage(),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  getMainContent() {
-    if (_selectedIndex == 0) {
-      return const HomePage();
-    } else if (_selectedIndex == 1) {
-      return const FavouritePage();
-    } else {
-      return const ProfilePage();
-    }
   }
 
   @override
@@ -70,12 +66,15 @@ class _BuyScreenState extends State<BuyScreen> {
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor:B_TNAV_COLOR,
+          selectedItemColor: B_TNAV_COLOR,
           unselectedItemColor: B_BNAV_COLOR,
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),
-      body: getMainContent(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
     );
   }
 }
