@@ -1,3 +1,4 @@
+import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/estimate_price.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +42,8 @@ class _StartSellingWithCarNumberState extends State<StartSellingWithCarNumber> {
               onPressed: () {
                 // Perform action when the button is pressed
                 // You can access the car number using _carNumberController.text
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => const EstimatePriceScreen()));
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor:

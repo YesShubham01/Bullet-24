@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:bullet24/Pages/BuyScreen/Item%20Page/item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
@@ -28,11 +26,11 @@ class VehicalItemTile extends StatelessWidget {
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
-                shadows:  [
+                shadows: [
                   BoxShadow(
                     color: shadow_false,
                     blurRadius: 4,
-                    offset: Offset(-2, 6),
+                    offset: const Offset(-2, 6),
                     spreadRadius: 0,
                   )
                 ],
@@ -48,8 +46,8 @@ class VehicalItemTile extends StatelessWidget {
               ),
             ),
           ),
-           Padding(
-            padding: EdgeInsets.only(left: 5),
+          Padding(
+            padding: const EdgeInsets.only(left: 5),
             child: Text(
               "\$ price",
               style: TextStyle(
