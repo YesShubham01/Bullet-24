@@ -1,3 +1,4 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';

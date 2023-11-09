@@ -67,6 +67,9 @@ class _EstimatePriceScreenState extends State<EstimatePriceScreen> {
 
   getButtonIfActive() {
     button_active = context.watch<QueryPageProvider>().iscompanySelected;
+    if (progress == 4) {
+      return Container();
+    }
     if (button_active) {
       return SizedBox(
         height: 50,

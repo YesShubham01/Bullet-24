@@ -1,3 +1,4 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Support%20Widget/choose_model.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Support%20Widget/company_item.dart';
 import 'package:bullet24/Provider/query_page_provider.dart';
@@ -23,7 +24,8 @@ class _QueryScreen1State extends State<QueryScreen1> {
   }
 
   get2ndOption() {
-    Company? chosenCompany = context.watch<QueryPageProvider>().chosenCompany;
+    Company? chosenCompany =
+        context.watch<QueryPageProvider>().myVehical!.company;
     if (chosenCompany == null) {
       return Container();
     } else if (chosenCompany == Company.royalEnfield) {

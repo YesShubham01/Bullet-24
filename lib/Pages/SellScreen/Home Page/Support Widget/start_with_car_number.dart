@@ -1,6 +1,8 @@
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/estimate_price.dart';
+import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class StartSellingWithCarNumber extends StatefulWidget {
   const StartSellingWithCarNumber({super.key});
@@ -41,6 +43,11 @@ class _StartSellingWithCarNumberState extends State<StartSellingWithCarNumber> {
             child: ElevatedButton(
               onPressed: () {
                 // Perform action when the button is pressed
+                context.read<QueryPageProvider>().setCompanyOfVehical(null);
+                context
+                    .read<QueryPageProvider>()
+                    .checkInitialisationOfVehical();
+
                 // You can access the car number using _carNumberController.text
                 Navigator.of(context).push(MaterialPageRoute(
                     builder: (context) => const EstimatePriceScreen()));

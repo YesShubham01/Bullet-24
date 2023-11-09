@@ -1,3 +1,4 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
@@ -124,7 +125,9 @@ class _TwoCompanyItemsState extends State<TwoCompanyItems> {
 
   select_1() {
     setState(() {
-      context.read<QueryPageProvider>().setCompanyAsRoyalEnfield();
+      context
+          .read<QueryPageProvider>()
+          .setCompanyOfVehical(Company.royalEnfield);
 
       tile1 = 1;
       tile2 = -1;
@@ -135,7 +138,7 @@ class _TwoCompanyItemsState extends State<TwoCompanyItems> {
 
   select_2() {
     setState(() {
-      context.read<QueryPageProvider>().setCompanyAsOthers();
+      context.read<QueryPageProvider>().setCompanyOfVehical(Company.other);
 
       tile2 = 1;
       tile1 = -1;

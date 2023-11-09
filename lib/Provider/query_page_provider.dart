@@ -1,33 +1,60 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:flutter/material.dart';
-
-enum Company { royalEnfield, other }
-
-enum BulletModel { model1, model2, model3, model4 }
 
 class QueryPageProvider extends ChangeNotifier {
   String data;
   bool iscompanySelected;
-  Company? chosenCompany;
-  BulletModel? chosenModel;
+  VehicalDetail? myVehical;
 
   QueryPageProvider({
     this.data = "data",
     this.iscompanySelected = false,
   });
 
-  setCompanyAsRoyalEnfield() {
-    iscompanySelected = true;
-    chosenCompany = Company.royalEnfield;
-    notifyListeners();
+  checkInitialisationOfVehical() {
+    if (myVehical == null) {
+      initialiseVehicalDetail();
+    }
   }
 
-  setCompanyAsOthers() {
+  initialiseVehicalDetail() {
+    // fetch username to use here
+    myVehical = VehicalDetail(ownerName: "Name");
+
+    // some default values
+    myVehical!.yearOfPurchase = 2000;
+    myVehical!.yearOfRelese = 2000;
+  }
+
+  setCompanyOfVehical(Company? option) {
+    checkInitialisationOfVehical();
     iscompanySelected = true;
-    chosenCompany = Company.other;
+    myVehical!.company = option;
     notifyListeners();
   }
 
   setBulletModel(BulletModel option) {
-    chosenModel = option;
+    checkInitialisationOfVehical();
+    myVehical!.model = option;
+    notifyListeners();
+  }
+
+  setYearOfRelease(int option) {
+    checkInitialisationOfVehical();
+    myVehical!.yearOfRelese = option;
+    notifyListeners();
+  }
+
+  setYearOfPurchase(int option) {
+    checkInitialisationOfVehical();
+    myVehical!.yearOfPurchase = option;
+    notifyListeners();
+  }
+
+  // Method to set meterReading based on input
+  setMeterReading(int reading) {
+    checkInitialisationOfVehical();
+    myVehical!.meterReading = reading;
+    notifyListeners();
   }
 }
