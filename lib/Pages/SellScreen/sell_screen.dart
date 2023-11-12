@@ -1,4 +1,7 @@
+import 'package:bullet24/Pages/Profile%20Page/profile_page.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/seller_homepage.dart';
+import 'package:bullet24/Pages/Notification%20Page/sell_notification.dart';
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class SellScreen extends StatefulWidget {
@@ -20,13 +23,15 @@ class _SellScreenState extends State<SellScreen> {
   getMainContent() {
     if (_selectedIndex == 0) {
       return const SellerHomePage();
+    } else if (_selectedIndex == 1) {
+      return const ProfilePage();
     }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: const Color.fromARGB(255, 218, 243, 255),
+      backgroundColor: lightGreyBackground,
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Bullet 24"),
@@ -35,7 +40,11 @@ class _SellScreenState extends State<SellScreen> {
             icon: const Icon(
               Icons.notifications,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(MaterialPageRoute(
+                builder: (context) => NotificationPage(),
+              ));
+            },
           ),
         ],
       ),
@@ -49,12 +58,12 @@ class _SellScreenState extends State<SellScreen> {
               ),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.history,
-              ),
-              label: 'Track',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.history,
+            //   ),
+            //   label: 'Track',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,
@@ -62,10 +71,10 @@ class _SellScreenState extends State<SellScreen> {
               label: 'Profile',
             ),
           ],
-          type: BottomNavigationBarType.shifting,
+          type: BottomNavigationBarType.fixed,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black45,
+          selectedItemColor: B_TNAV_COLOR,
+          unselectedItemColor: B_BNAV_COLOR,
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),

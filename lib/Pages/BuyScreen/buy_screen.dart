@@ -1,7 +1,9 @@
-import 'package:bullet24/Pages/BuyScreen/Favourite%20Page/favourite_page.dart';
 import 'package:bullet24/Pages/BuyScreen/Home%20Page/homepage.dart';
-import 'package:bullet24/Pages/BuyScreen/Profile%20Page/profile_page.dart';
+import 'package:bullet24/Pages/Notification%20Page/sell_notification.dart';
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
+
+import '../Profile Page/profile_page.dart';
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({super.key});
@@ -13,20 +15,15 @@ class BuyScreen extends StatefulWidget {
 class _BuyScreenState extends State<BuyScreen> {
   int _selectedIndex = 0;
 
+  final List<Widget> _pages = const [
+    HomePage(),
+    ProfilePage(),
+  ];
+
   void _onItemTapped(int index) {
     setState(() {
       _selectedIndex = index;
     });
-  }
-
-  getMainContent() {
-    if (_selectedIndex == 0) {
-      return const HomePage();
-    } else if (_selectedIndex == 1) {
-      return const FavouritePage();
-    } else {
-      return const ProfilePage();
-    }
   }
 
   @override
@@ -40,7 +37,13 @@ class _BuyScreenState extends State<BuyScreen> {
             icon: const Icon(
               Icons.notifications,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => NotificationPage(),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -54,12 +57,12 @@ class _BuyScreenState extends State<BuyScreen> {
               ),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-              ),
-              label: 'Favourite',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.favorite,
+            //   ),
+            //   label: 'Favourite',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,
@@ -69,12 +72,15 @@ class _BuyScreenState extends State<BuyScreen> {
           ],
           type: BottomNavigationBarType.shifting,
           currentIndex: _selectedIndex,
-          selectedItemColor: Colors.blue,
-          unselectedItemColor: Colors.black45,
+          selectedItemColor: B_TNAV_COLOR,
+          unselectedItemColor: B_BNAV_COLOR,
           iconSize: 40,
           onTap: _onItemTapped,
           elevation: 5),
-      body: getMainContent(),
+      body: IndexedStack(
+        index: _selectedIndex,
+        children: _pages,
+      ),
     );
   }
 }

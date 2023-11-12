@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class SellerHomePageOr extends StatelessWidget {
@@ -5,14 +6,14 @@ class SellerHomePageOr extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
+    return Padding(
       padding: EdgeInsets.symmetric(vertical: 10),
       child: Row(children: <Widget>[
         Expanded(
             child: Divider(
-          color: Colors.blue,
+          color:B_TNAV_COLOR,
         )),
-        Text(
+        const Text(
           "OR",
           style: TextStyle(
             fontSize: 18,
@@ -21,7 +22,7 @@ class SellerHomePageOr extends StatelessWidget {
         ),
         Expanded(
             child: Divider(
-          color: Colors.blue,
+          color: B_TNAV_COLOR,
         )),
       ]),
     );

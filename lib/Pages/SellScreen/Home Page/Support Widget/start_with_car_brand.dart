@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class StartSellingWithCarBrand extends StatefulWidget {
@@ -19,13 +20,13 @@ class _StartSellingWithCarBrandState extends State<StartSellingWithCarBrand> {
           width: width,
           height: 340,
           decoration: ShapeDecoration(
-            color: const Color(0xFFEDEEF0),
+            color: BS_FSG_button_false_color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            shadows: const [
+            shadows:  [
               BoxShadow(
-                color: Color(0xFF496A9F),
+                color: shadow_false,
                 blurRadius: 4,
                 offset: Offset(-2, -4),
                 spreadRadius: 0,

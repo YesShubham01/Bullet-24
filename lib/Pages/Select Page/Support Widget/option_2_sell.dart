@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class OptionSell extends StatefulWidget {
@@ -25,14 +26,14 @@ class _OptionSellState extends State<OptionSell> {
               height: widget.active ? 140 : 120,
               decoration: ShapeDecoration(
                 color: widget.active
-                    ? const Color.fromARGB(255, 210, 223, 243)
-                    : const Color(0xFFEDEEF0),
+                    ? BS_button_active_color
+                    : BS_FSG_button_false_color,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(20),
                 ),
                 shadows: [
                   BoxShadow(
-                    color: const Color(0xFF4D72AD),
+                    color: BS_subtitle_shadow_true_color,
                     blurRadius: 4,
                     offset: const Offset(-2, 6),
                     spreadRadius: widget.active ? 5 : 1,
@@ -49,8 +50,8 @@ class _OptionSellState extends State<OptionSell> {
                 'Sell',
                 style: TextStyle(
                   color: widget.active
-                      ? const Color(0xFF0A2E68)
-                      : const Color(0x99092D68),
+                      ? BS_Cshadow_active_color
+                      : BS_false_color,
                   fontSize: 40,
                   fontFamily: 'Inter',
                   fontWeight: FontWeight.w700,
@@ -70,8 +71,8 @@ class _OptionSellState extends State<OptionSell> {
                   'Get Best Price Online Instantly.',
                   style: TextStyle(
                     color: widget.active
-                        ? const Color(0xFF4D72AD)
-                        : const Color(0x994D72AD),
+                        ? BS_subtitle_shadow_true_color
+                        : BS_subtitle_false_color,
                     fontSize: 16,
                     fontFamily: 'Inter',
                     fontWeight: FontWeight.w700,

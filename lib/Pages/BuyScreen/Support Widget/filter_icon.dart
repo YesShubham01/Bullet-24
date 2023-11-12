@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class FilterWidget extends StatefulWidget {
@@ -28,13 +29,13 @@ class _FilterWidgetState extends State<FilterWidget> {
           height: active ? 260 : 60,
           width: active ? width : 60,
           decoration: ShapeDecoration(
-            color: const Color(0xFFEDEEF0),
+            color: BS_FSG_button_false_color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            shadows: const [
+            shadows:  [
               BoxShadow(
-                color: Color(0xFF496A9F),
+                color: shadow_false,
                 blurRadius: 4,
                 offset: Offset(-2, 6),
                 spreadRadius: 0,

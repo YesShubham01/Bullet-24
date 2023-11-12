@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class HotDealSectionCard extends StatelessWidget {
@@ -12,13 +13,13 @@ class HotDealSectionCard extends StatelessWidget {
           height: 130,
           width: 230,
           decoration: ShapeDecoration(
-            color: const Color(0xFFEDEEF0),
+            color: BS_FSG_button_false_color,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(20),
             ),
-            shadows: const [
+            shadows:  [
               BoxShadow(
-                color: Color(0xFF496A9F),
+                color: shadow_false,
                 blurRadius: 4,
                 offset: Offset(-2, 6),
                 spreadRadius: 0,

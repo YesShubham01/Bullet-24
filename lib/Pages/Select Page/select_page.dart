@@ -9,16 +9,35 @@ import 'Support Widget/option_2_sell.dart';
 import 'Support Widget/topleft_logo.dart';
 
 class SelectPage extends StatefulWidget {
-  const SelectPage({super.key});
+  const SelectPage({Key? key}) : super(key: key);
 
   @override
   State<SelectPage> createState() => _SelectPageState();
 }
 
 class _SelectPageState extends State<SelectPage> {
-  bool _button_active = false;
-  bool _buy_status = false;
-  bool _sell_status = false;
+  bool _buyStatus = false;
+  bool _sellStatus = false;
+  bool _buttonActive = false;
+
+  void _onOptionTap(bool buy) {
+    setState(() {
+      _buyStatus = buy;
+      _sellStatus = !buy;
+      _buttonActive = true;
+    });
+  }
+
+  void _onContinueButtonTap() {
+    print("Button pressed");
+    if (_buyStatus) {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const BuyScreen()));
+    } else {
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => const SellScreen()));
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -28,72 +47,16 @@ class _SelectPageState extends State<SelectPage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            //logo
             const TopLeftLogo(),
-
-            //title
             const TitleBlueTint(text: "What would you like to do?\n"),
-
-            //option 1 buy
-            OptionBuy(
-              active: _buy_status,
-              onTap: option_buy_onTap,
-            ),
-
-            //option 2 sell
-            OptionSell(
-              active: _sell_status,
-              onTap: option_sell_onTap,
-            ),
-
-            // continue Button
-
+            OptionBuy(active: _buyStatus, onTap: () => _onOptionTap(true)),
+            OptionSell(active: _sellStatus, onTap: () => _onOptionTap(false)),
             AnimatedContinueButton(
-                active: _button_active, onTap: continue_button_ontap),
-
-            const SizedBox(
-              height: 60,
-            ),
+                active: _buttonActive, onTap: _onContinueButtonTap),
+            const SizedBox(height: 60),
           ],
         ),
       ),
     );
-  }
-
-  void continue_button_ontap() {
-    print("Button pressed");
-    if (_buy_status) {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const BuyScreen()));
-    } else {
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => const SellScreen()));
-    }
-  }
-
-  void option_buy_onTap() {
-    setState(() {
-      _buy_status = true;
-      _sell_status = false;
-    });
-
-    activateButton();
-  }
-
-  void option_sell_onTap() {
-    setState(() {
-      _buy_status = false;
-      _sell_status = true;
-    });
-
-    activateButton();
-  }
-
-  void activateButton() {
-    if (_button_active == false) {
-      setState(() {
-        _button_active = true;
-      });
-    }
   }
 }

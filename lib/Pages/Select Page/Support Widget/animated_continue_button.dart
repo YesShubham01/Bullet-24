@@ -1,3 +1,4 @@
+import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class AnimatedContinueButton extends StatefulWidget {
@@ -20,17 +21,13 @@ class _AnimatedContinueButtonState extends State<AnimatedContinueButton> {
         width: widget.active ? 329 : 310,
         height: widget.active ? 60 : 50,
         decoration: ShapeDecoration(
-          color: widget.active
-              ? const Color.fromARGB(255, 81, 133, 219)
-              : const Color(0xFFA7B3C6),
+          color: widget.active ? Colors.blue : Continue_false,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           shadows: [
             BoxShadow(
-              color: widget.active
-                  ? const Color(0xFF0A2E68)
-                  : const Color(0xFF496A9F),
+              color: widget.active ? BS_Cshadow_active_color : shadow_false,
               blurRadius: 4,
               offset: const Offset(-2, 6),
               spreadRadius: 0,
