@@ -4,6 +4,7 @@ enum BulletModel { model1, model2, model3, model4 }
 
 class VehicalDetail {
   VehicalDetail({
+    required this.ownerName,
     this.number,
     this.company,
     this.estPrice,
@@ -11,8 +12,14 @@ class VehicalDetail {
     this.model,
     this.yearOfPurchase,
     this.yearOfRelese,
-    required this.ownerName,
+    this.frontPhoto,
+    this.sidePhoto,
+    this.rearPhoto,
+    this.tankPhoto,
+    this.rcNumber,
+    this.insuranceDetails,
   });
+
   String ownerName;
   String? number;
   Company? company;
@@ -21,4 +28,10 @@ class VehicalDetail {
   int? yearOfRelese;
   int? yearOfPurchase;
   int? meterReading;
+  String? frontPhoto;
+  String? sidePhoto;
+  String? rearPhoto;
+  String? tankPhoto;
+  String? rcNumber;
+  String? insuranceDetails;
 }

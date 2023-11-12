@@ -17,7 +17,6 @@ class _QueryScreen3State extends State<QueryScreen3> {
     return Padding(
       padding: const EdgeInsets.all(16.0),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           const Text(
             "Enter the current meter reading",

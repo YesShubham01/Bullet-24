@@ -21,17 +21,13 @@ class _AnimatedContinueButtonState extends State<AnimatedContinueButton> {
         width: widget.active ? 329 : 310,
         height: widget.active ? 60 : 50,
         decoration: ShapeDecoration(
-          color: widget.active
-              ? Continue_active
-              : Continue_false,
+          color: widget.active ? Colors.blue : Continue_false,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(10),
           ),
           shadows: [
             BoxShadow(
-              color: widget.active
-                  ? BS_Cshadow_active_color
-                  : shadow_false,
+              color: widget.active ? BS_Cshadow_active_color : shadow_false,
               blurRadius: 4,
               offset: const Offset(-2, 6),
               spreadRadius: 0,

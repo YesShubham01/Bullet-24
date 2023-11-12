@@ -1,3 +1,4 @@
+import 'package:bullet24/Widgets/custom_searchbar.dart';
 import 'package:flutter/material.dart';
 
 import '../Support Widget/filter_icon.dart';
@@ -12,7 +13,7 @@ class HomePageHeader extends StatelessWidget {
         Expanded(
             child: Padding(
           padding: EdgeInsets.only(left: 10, right: 10),
-          child: SearchBar(),
+          child: CustomSearchBar(),
         )),
         FilterWidget(),
       ],

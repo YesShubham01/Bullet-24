@@ -1,8 +1,9 @@
-import 'package:bullet24/Pages/BuyScreen/Favourite%20Page/favourite_page.dart';
 import 'package:bullet24/Pages/BuyScreen/Home%20Page/homepage.dart';
-import 'package:bullet24/Pages/BuyScreen/Profile%20Page/profile_page.dart';
+import 'package:bullet24/Pages/Notification%20Page/sell_notification.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
+
+import '../Profile Page/profile_page.dart';
 
 class BuyScreen extends StatefulWidget {
   const BuyScreen({super.key});
@@ -16,7 +17,6 @@ class _BuyScreenState extends State<BuyScreen> {
 
   final List<Widget> _pages = const [
     HomePage(),
-    FavouritePage(),
     ProfilePage(),
   ];
 
@@ -37,7 +37,13 @@ class _BuyScreenState extends State<BuyScreen> {
             icon: const Icon(
               Icons.notifications,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(
+                  builder: (context) => NotificationPage(),
+                ),
+              );
+            },
           ),
         ],
       ),
@@ -51,12 +57,12 @@ class _BuyScreenState extends State<BuyScreen> {
               ),
               label: 'Home',
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.favorite,
-              ),
-              label: 'Favourite',
-            ),
+            // BottomNavigationBarItem(
+            //   icon: Icon(
+            //     Icons.favorite,
+            //   ),
+            //   label: 'Favourite',
+            // ),
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.account_circle,

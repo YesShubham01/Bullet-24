@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'circular_container.dart';
+import '../../../../../Widgets/circular_container.dart';
 
 class ProgressBarForm extends StatelessWidget {
   final int progress;
@@ -8,6 +8,7 @@ class ProgressBarForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenWidth = MediaQuery.of(context).size.width - 20 - (15 * 4);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
@@ -20,25 +21,32 @@ class ProgressBarForm extends StatelessWidget {
             ),
             child: Divider(thickness: 3),
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(vertical: 0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: [
-                CircularContainer(),
-                CircularContainer(),
-                CircularContainer(),
-                CircularContainer(),
-              ],
-            ),
+          Row(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 5),
+                child: const CircularContainer(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 5),
+                child: const CircularContainer(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 5),
+                child: const CircularContainer(),
+              ),
+              Padding(
+                padding: EdgeInsets.only(left: screenWidth / 5),
+                child: const CircularContainer(),
+              ),
+            ],
           ),
           AnimatedPositioned(
             duration: const Duration(milliseconds: 200),
             top: 0,
-            left: progressLeftPadding(),
+            left: progressLeftPadding(screenWidth),
             child: ClipOval(
               child: Container(
-                padding: EdgeInsets.only(left: progressLeftPadding()),
                 color: Colors.blue,
                 height: 15,
                 width: 15,
@@ -50,16 +58,20 @@ class ProgressBarForm extends StatelessWidget {
     );
   }
 
-  progressLeftPadding() {
+  double progressLeftPadding(double screenWidth) {
+    // 15 is a special number here because it's width of container
+    double padding = (screenWidth / 5); // Adjust this as needed
     switch (progress) {
       case 1:
-        return 60.00;
+        return padding;
       case 2:
-        return 135.00;
+        return 2 * padding + 15;
       case 3:
-        return 210.00;
+        return 3 * padding + 30;
       case 4:
-        return 285.00;
+        return 4 * padding + 45;
+      default:
+        return 0;
     }
   }
 }

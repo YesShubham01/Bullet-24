@@ -15,11 +15,17 @@ class _QueryScreen2State extends State<QueryScreen2> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: Column(
+      child: ListView(
         children: [
-          _buildSection("Enter Year of Model Released", ofPurchase: false),
-          const SizedBox(height: 60),
-          _buildSection("Enter Year of Purchase", ofPurchase: true),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: _buildSection("Year of Model Released", ofPurchase: false),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 5),
+            child: _buildSection("Year of Purchase", ofPurchase: true),
+          ),
         ],
       ),
     );
@@ -27,6 +33,8 @@ class _QueryScreen2State extends State<QueryScreen2> {
 
   Widget _buildSection(String title, {required bool ofPurchase}) {
     return Container(
+      margin:
+          const EdgeInsets.symmetric(vertical: 10), // Adjust margin if needed
       padding: const EdgeInsets.all(20),
       decoration: ShapeDecoration(
         color: Colors.white,
@@ -43,6 +51,7 @@ class _QueryScreen2State extends State<QueryScreen2> {
         ],
       ),
       child: Column(
+        mainAxisSize: MainAxisSize.min, // Ensure the column takes minimum space
         children: [
           Center(
             child: Text(
