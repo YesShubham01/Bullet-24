@@ -37,9 +37,34 @@ class LoginPageState extends State<LoginPage> {
             ),
             const Padding(
               padding: EdgeInsets.only(top: 150),
-              child: Center(
-                child: GoogleSignInButton(),
-              ),
+              child: Align(
+                  alignment: Alignment.topCenter,
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Column(
+                      children: [
+                        Text(
+                          "Login",
+                          style: TextStyle(
+                              fontSize: 22, fontWeight: FontWeight.bold),
+                        ),
+                        SizedBox(
+                          height: 10,
+                        ),
+                        Text(
+                          "Login with your Google Account to continue!",
+                          style: TextStyle(
+                            fontSize: 16,
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        SizedBox(
+                          height: 30,
+                        ),
+                        GoogleSignInButton(),
+                      ],
+                    ),
+                  )),
             ),
           ],
         ),

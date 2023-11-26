@@ -1,4 +1,9 @@
+import 'package:bullet24/Pages/Select%20Page/select_page.dart';
+import 'package:bullet24/Provider/my_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+
+import '../Services/FireAuth Service/authentication.dart';
 
 class GoogleSignInButton extends StatefulWidget {
   const GoogleSignInButton({super.key});
@@ -8,20 +13,21 @@ class GoogleSignInButton extends StatefulWidget {
 }
 
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
-  final bool _isSigningIn = false;
+  bool _isSigningIn = false;
 
   _check_login() {
-    // if (Authenticate.isLoggedIn()) {
-    //   Navigator.of(context)
-    //       .push(MaterialPageRoute(builder: (context) => const MainPage()));
-    // } else {
-    //   ScaffoldMessenger.of(context).showSnackBar(
-    //     const SnackBar(
-    //       content: Text('Failed!'),
-    //       duration: Duration(seconds: 3), // Adjust the duration as needed
-    //     ),
-    //   );
-    // }
+    if (Authenticate.isLoggedIn()) {
+      context.read<MyProvider>().setLogined(true);
+      Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => const SelectPage()));
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Failed!'),
+          duration: Duration(seconds: 3), // Adjust the duration as needed
+        ),
+      );
+    }
   }
 
   @override
@@ -34,7 +40,8 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
             )
           : OutlinedButton(
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(
+                    const Color.fromRGBO(255, 255, 255, 1)),
                 shape: MaterialStateProperty.all(
                   RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(40),
@@ -42,25 +49,25 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
                 ),
               ),
               onPressed: () async {
-                //   setState(() {
-                //     _isSigningIn = true;
-                //   });
+                setState(() {
+                  _isSigningIn = true;
+                });
 
-                //   if (await Authenticate.continueWithGoogle()) {
-                //     _check_login();
-                //   } else {
-                //     ScaffoldMessenger.of(context).showSnackBar(
-                //       const SnackBar(
-                //         content: Text('Failed!'),
-                //         duration:
-                //             Duration(seconds: 3), // Adjust the duration as needed
-                //       ),
-                //     );
-                //   }
+                if (await Authenticate.continueWithGoogle()) {
+                  _check_login();
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text('Failed!'),
+                      duration:
+                          Duration(seconds: 3), // Adjust the duration as needed
+                    ),
+                  );
+                }
 
-                //   setState(() {
-                //     _isSigningIn = false;
-                //   });
+                setState(() {
+                  _isSigningIn = false;
+                });
               },
               child: const Padding(
                 padding: EdgeInsets.fromLTRB(0, 10, 0, 10),

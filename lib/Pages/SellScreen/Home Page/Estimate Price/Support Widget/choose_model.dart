@@ -60,112 +60,118 @@ class GridModelTiles extends StatefulWidget {
 }
 
 class _GridModelTilesState extends State<GridModelTiles> {
-  bool tile1 = false;
-  bool tile2 = false;
-  bool tile3 = false;
-  bool tile4 = false;
+  int active = -1;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 30, right: 30, top: 20),
-      child: Column(
-        children: [
-          const Divider(thickness: 3),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    activateTile1();
-                  },
-                  child: ChooseModelTile(isActive: tile1, text: "Model 1"),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    activateTile2();
-                  },
-                  child: ChooseModelTile(isActive: tile2, text: "Model 2"),
-                ),
-              ),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    activateTile3();
-                  },
-                  child: ChooseModelTile(isActive: tile3, text: "Model 3"),
-                ),
-              ),
-              Expanded(
-                child: InkWell(
-                  highlightColor: Colors.transparent,
-                  splashColor: Colors.transparent,
-                  onTap: () {
-                    activateTile4();
-                  },
-                  child: ChooseModelTile(isActive: tile4, text: "Model 4"),
-                ),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+        padding:
+            const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+        child: SizedBox(
+          child: ListView.builder(
+              itemCount: 10,
+              itemBuilder: (context, index) {
+                if (index % 2 == 0) {
+                  return Container();
+                }
+                return Row(
+                  children: [
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          activateTileFromIndex(index);
+                        },
+                        child: ChooseModelTile(
+                            isActive: (index == active), text: "Model $index"),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        highlightColor: Colors.transparent,
+                        splashColor: Colors.transparent,
+                        onTap: () {
+                          activateTileFromIndex(index + 1);
+                        },
+                        child: ChooseModelTile(
+                            isActive: ((index + 1) == active),
+                            text: "Model ${index + 1}"),
+                      ),
+                    ),
+                    const SizedBox(
+                      width: 10,
+                    ),
+                  ],
+                );
+              }),
+        ));
   }
 
-  activateTile1() {
+  activateTileFromIndex(int index) {
     setState(() {
-      context.read<QueryPageProvider>().setBulletModel(BulletModel.model1);
-
-      tile1 = true;
-      tile2 = false;
-      tile3 = false;
-      tile4 = false;
-    });
-  }
-
-  activateTile2() {
-    setState(() {
-      context.read<QueryPageProvider>().setBulletModel(BulletModel.model2);
-
-      tile1 = false;
-      tile2 = true;
-      tile3 = false;
-      tile4 = false;
-    });
-  }
-
-  activateTile3() {
-    setState(() {
-      context.read<QueryPageProvider>().setBulletModel(BulletModel.model3);
-
-      tile1 = false;
-      tile2 = false;
-      tile3 = true;
-      tile4 = false;
-    });
-  }
-
-  activateTile4() {
-    setState(() {
-      context.read<QueryPageProvider>().setBulletModel(BulletModel.model4);
-
-      tile1 = false;
-      tile2 = false;
-      tile3 = false;
-      tile4 = true;
+      active = index;
+      switch (index) {
+        case 0:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.bullet350);
+          break;
+        case 1:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.classic350);
+          break;
+        case 2:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.hunter350);
+          break;
+        case 3:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.scram411);
+          break;
+        case 4:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.meteor350);
+          break;
+        case 5:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.superMeteor650);
+          break;
+        case 6:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.himalayan);
+          break;
+        case 7:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.newHimalayan);
+          break;
+        case 8:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.interceptor);
+          break;
+        case 9:
+          context
+              .read<QueryPageProvider>()
+              .setBulletModel(BulletModel.continentalGT);
+          break;
+        default:
+          // Handle the default case (if needed)
+          break;
+      }
     });
   }
 }

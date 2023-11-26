@@ -1,4 +1,5 @@
 import 'package:bullet24/Pages/Login%20Page/login_page.dart';
+import 'package:bullet24/Pages/Profile%20Page/profile_page.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/seller_homepage.dart';
 import 'package:bullet24/Pages/Notification%20Page/sell_notification.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
@@ -25,7 +26,7 @@ class _SellScreenState extends State<SellScreen> {
       return const SellerHomePage();
     } else if (_selectedIndex == 1) {
       // return const ProfilePage();
-      return const LoginPage();
+      return const ProfilePage();
     }
   }
 

@@ -15,10 +15,10 @@ class QueryScreen1 extends StatefulWidget {
 class _QueryScreen1State extends State<QueryScreen1> {
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         const TwoCompanyItems(),
-        get2ndOption(),
+        Expanded(child: get2ndOption()),
       ],
     );
   }

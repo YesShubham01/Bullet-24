@@ -2,7 +2,10 @@ import 'package:bullet24/Pages/BuyScreen/buy_screen.dart';
 import 'package:bullet24/Pages/Select%20Page/Support%20Widget/animated_continue_button.dart';
 import 'package:bullet24/Pages/Select%20Page/Support%20Widget/title_text_1.dart';
 import 'package:bullet24/Pages/SellScreen/sell_screen.dart';
+import 'package:bullet24/Provider/my_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import 'Support Widget/option_1_buy.dart';
 import 'Support Widget/option_2_sell.dart';
@@ -37,6 +40,13 @@ class _SelectPageState extends State<SelectPage> {
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => const SellScreen()));
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    String? username = FirebaseAuth.instance.currentUser?.displayName;
+    context.read<MyProvider>().setUserName(username);
   }
 
   @override

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "282534308498",
+    "project_id": "bullet-24",
+    "storage_bucket": "bullet-24.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:282534308498:android:34fcfdcf2d582ad444d44b",
+        "android_client_info": {
+          "package_name": "com.example.bullet24"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBAtYKvx024SQhAGZfBMlTLOOdQUnwn86A"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

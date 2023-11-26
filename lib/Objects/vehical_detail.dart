@@ -1,6 +1,18 @@
 enum Company { royalEnfield, other }
 
-enum BulletModel { model1, model2, model3, model4 }
+// 9 models --> Source (Royal Enfield)
+enum BulletModel {
+  bullet350,
+  classic350,
+  hunter350,
+  scram411,
+  meteor350,
+  superMeteor650,
+  himalayan,
+  newHimalayan,
+  interceptor,
+  continentalGT,
+}
 
 class VehicalDetail {
   VehicalDetail({
