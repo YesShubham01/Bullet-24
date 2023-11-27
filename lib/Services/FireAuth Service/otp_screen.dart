@@ -152,7 +152,6 @@ class _OtpScreenState extends State<OtpScreen> {
         smsCode: otp,
       );
 
-      User currentUser = FirebaseAuth.instance.currentUser!;
       await FirebaseAuth.instance.currentUser?.linkWithCredential(credential);
 
       // Authentication successful, you can navigate to the next screen

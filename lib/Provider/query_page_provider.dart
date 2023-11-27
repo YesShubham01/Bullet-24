@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 
 class QueryPageProvider extends ChangeNotifier {
   String data;
-  bool iscompanySelected;
+  bool isCompanySelected;
   VehicalDetail? myVehical;
 
   QueryPageProvider({
     this.data = "data",
-    this.iscompanySelected = false,
+    this.isCompanySelected = false,
   });
 
   checkInitialisationOfVehical() {
@@ -28,7 +28,7 @@ class QueryPageProvider extends ChangeNotifier {
 
   setCompanyOfVehical(Company? option) {
     checkInitialisationOfVehical();
-    iscompanySelected = true;
+    isCompanySelected = true;
     myVehical!.company = option;
     notifyListeners();
   }

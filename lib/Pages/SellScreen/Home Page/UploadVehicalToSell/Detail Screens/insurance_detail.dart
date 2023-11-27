@@ -41,6 +41,7 @@ class InsuranceForm extends StatelessWidget {
             border: OutlineInputBorder(),
             contentPadding: EdgeInsets.symmetric(horizontal: 16.0),
           ),
+          keyboardType: TextInputType.number,
         ),
         const SizedBox(height: 16.0),
         InkWell(

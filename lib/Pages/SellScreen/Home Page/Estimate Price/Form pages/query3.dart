@@ -43,12 +43,6 @@ class _QueryScreen3State extends State<QueryScreen3> {
             },
           ),
           const SizedBox(height: 20),
-          ElevatedButton(
-            onPressed: () {
-              // Perform action on button click
-            },
-            child: const Text('Submit'),
-          ),
         ],
       ),
     );

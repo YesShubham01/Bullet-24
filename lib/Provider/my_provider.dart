@@ -9,6 +9,10 @@ class MyProvider extends ChangeNotifier {
     this.isLoggined = false,
   });
 
+  setUserDetails(UserDetail user) {
+    userDetail = user;
+  }
+
   isUserNameNull() {
     if (userDetail.name == null) {
       return true;

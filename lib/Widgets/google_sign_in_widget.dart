@@ -1,5 +1,6 @@
 import 'package:bullet24/Pages/Select%20Page/select_page.dart';
 import 'package:bullet24/Provider/my_provider.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -15,9 +16,13 @@ class GoogleSignInButton extends StatefulWidget {
 class _GoogleSignInButtonState extends State<GoogleSignInButton> {
   bool _isSigningIn = false;
 
-  _check_login() {
+  _check_login() async {
     if (Authenticate.isLoggedIn()) {
       context.read<MyProvider>().setLogined(true);
+      context
+          .read<MyProvider>()
+          .setUserDetails(await FireStore().getUserDetails());
+      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
           MaterialPageRoute(builder: (context) => const SelectPage()));
     } else {

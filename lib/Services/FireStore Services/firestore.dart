@@ -1,37 +1,31 @@
 import 'dart:async';
+import 'package:bullet24/Objects/user_detail.dart';
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class FireStore {
-  static Future<void> saveUserDataToFirestore(String name, String number,
-      String email, String rollno, String branch, String graduationyear) async {
+  Future<UserDetail> getUserDetails() async {
     try {
-      // Get the current authenticated user
       User? user = FirebaseAuth.instance.currentUser;
 
       if (user != null) {
-        // Create a map with the user data
-        Map<String, dynamic> userData = {
-          'name': name,
-          'phone': number,
-          'email': email.toLowerCase(),
-          'rollNo': rollno,
-          'branch': branch.toLowerCase(),
-          'graduationYear': graduationyear,
-        };
+        // Fetch additional user details from Firebase Authentication
+        await user.reload();
+        user = FirebaseAuth.instance.currentUser;
 
-        // Get a reference to the Firestore database
-        FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-        // Set the user data in Firestore under the user's UID
-        await firestore.collection('Users').doc(user.uid).set(userData);
-
-        print('User data stored in Firestore for UID: ${user.uid}');
+        return UserDetail(
+            name: user!.displayName,
+            phone: user.phoneNumber,
+            profileImage: user.photoURL);
       } else {
-        print('User not authenticated');
+        // No user is signed in
+        return UserDetail(name: null, phone: null);
       }
     } catch (e) {
-      print('Error storing user data: $e');
+      print('Error fetching user details: $e');
+      // Handle the error as needed
+      return UserDetail(name: null, phone: null);
     }
   }
 
@@ -53,11 +47,7 @@ class FireStore {
           // Return the data as a UserDetail object
           return UserDetail(
             name: documentSnapshot['name'] ?? "",
-            number: documentSnapshot['phone'] ?? "",
-            email: documentSnapshot['email'] ?? "",
-            rollno: documentSnapshot['rollNo'] ?? "",
-            branch: documentSnapshot['branch'] ?? "",
-            graduationyear: documentSnapshot['graduationYear'] ?? "",
+            phone: documentSnapshot['phone'] ?? "",
           );
         } else {
           print('Document does not exist for UID: ${user.uid}');
@@ -73,29 +63,86 @@ class FireStore {
     }
   }
 
-  static Future<PostDetails> getMananAuditionDetails() async {
+  static Future<VehicalDetail> fetchVehicalDetail() async {
     try {
       DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('Events')
-          .doc('Manan Audition')
+          .collection('Active Vehicals')
+          .doc('001')
           .get();
 
       if (documentSnapshot.exists) {
         Map<String, dynamic> data =
             documentSnapshot.data() as Map<String, dynamic>;
 
-        return PostDetails(
-          title: data['description'] ?? '',
-          link: data['link'] ?? '',
-          date: data['date'] ?? '',
+        return VehicalDetail(
+          ownerName: data['ownerName'] ??
+              "", // Replace 'ownerName' with the actual field name in your Firestore document
+          number: data['number'] ?? "",
+          company: Company.values[data['company'] ?? 0],
+          model: BulletModel.values[data['model'] ?? 0],
+          estPrice: data['estPrice'] ?? "",
+          yearOfRelese: data['yearOfRelese'] ?? 0,
+          yearOfPurchase: data['yearOfPurchase'] ?? 0,
+          meterReading: data['meterReading'] ?? 0,
+          frontPhoto: data['frontPhoto'] ?? "",
+          sidePhoto: data['sidePhoto'] ?? "",
+          rearPhoto: data['rearPhoto'] ?? "",
+          tankPhoto: data['tankPhoto'] ?? "",
+          rcNumber: data['rcNumber'] ?? "",
+          insuranceDetails: data['insuranceDetails'] ?? "",
         );
       } else {
         // Document doesn't exist
-        return PostDetails();
+        return VehicalDetail(ownerName: "error");
       }
     } catch (e) {
-      print('Error retrieving Manan Audition details: $e');
-      return PostDetails();
+      print('Error retrieving Vehical details: $e');
+      return VehicalDetail(ownerName: "error");
+    }
+  }
+
+  Future<String?> getUserId() async {
+    try {
+      User? user = FirebaseAuth.instance.currentUser;
+      if (user != null) {
+        // The user is signed in
+        return user.uid;
+      } else {
+        // No user is signed in
+        return null;
+      }
+    } catch (e) {
+      print('Error getting user ID: $e');
+      return null;
+    }
+  }
+
+// function to upload Vehical Details.
+  Future<void> uploadVehicalDetail(VehicalDetail vehicalDetail) async {
+    try {
+      String? userId = await getUserId();
+      await FirebaseFirestore.instance
+          .collection('Active Vehicals')
+          .doc(userId)
+          .set({
+        'ownerName': vehicalDetail.ownerName,
+        'number': vehicalDetail.number,
+        'company': vehicalDetail.company?.index ?? 0,
+        'model': vehicalDetail.model?.index ?? 0,
+        'estPrice': vehicalDetail.estPrice,
+        'yearOfRelese': vehicalDetail.yearOfRelese,
+        'yearOfPurchase': vehicalDetail.yearOfPurchase,
+        'meterReading': vehicalDetail.meterReading,
+        'frontPhoto': vehicalDetail.frontPhoto,
+        'sidePhoto': vehicalDetail.sidePhoto,
+        'rearPhoto': vehicalDetail.rearPhoto,
+        'tankPhoto': vehicalDetail.tankPhoto,
+        'rcNumber': vehicalDetail.rcNumber,
+        'insuranceDetails': vehicalDetail.insuranceDetails,
+      });
+    } catch (e) {
+      print('Error uploading Vehical details: $e');
+      // Handle the error as needed
     }
   }
 }

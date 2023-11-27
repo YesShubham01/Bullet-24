@@ -3,6 +3,7 @@ import 'package:bullet24/Pages/Select%20Page/select_page.dart';
 import 'package:bullet24/Provider/my_provider.dart';
 import 'package:bullet24/Res/Widget/logo_animated.dart';
 import 'package:bullet24/Services/FireAuth%20Service/authentication.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:provider/provider.dart';
@@ -18,6 +19,10 @@ class _SplashPageState extends State<SplashPage> {
   Future<void> _checkAuthenticationAndNavigate() async {
     if (Authenticate.isLoggedIn()) {
       context.read<MyProvider>().setLogined(true);
+      context
+          .read<MyProvider>()
+          .setUserDetails(await FireStore().getUserDetails());
+      // ignore: use_build_context_synchronously
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const SelectPage()),

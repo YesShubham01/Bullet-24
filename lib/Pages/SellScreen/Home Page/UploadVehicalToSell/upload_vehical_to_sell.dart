@@ -1,8 +1,15 @@
+import 'package:bullet24/Objects/user_detail.dart';
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query1.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query2.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query3.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/UploadVehicalToSell/Detail%20Screens/result_detail.dart';
+import 'package:bullet24/Provider/my_provider.dart';
+import 'package:bullet24/Provider/query_page_provider.dart';
+import 'package:bullet24/Services/FireAuth%20Service/phone_auth.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 // Make sure to import your circular container widget
 import 'Detail Screens/insurance_detail.dart';
 import 'Detail Screens/meter_reading_details.dart';
@@ -92,22 +99,29 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
         progress++; // Next
       });
     } else {
-      setState(() {
-        progress = 1; // Reset
-      });
+      // check if user has loggedin via phone or not.
+      UserDetail user = context.read<MyProvider>().userDetail;
+      if (user.phone == null) {
+        Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const PhoneAuthPage(),
+        ));
+      } else {
+        _uploadVehicalDetail();
+      }
+      _setButtonTxt();
     }
-    _setButtonTxt();
   }
 
   void _setButtonTxt() {
-    if (progress == 9) {
-      setState(() {
-        buttonText = "Submit";
-      });
-    } else {
-      setState(() {
-        buttonText = "Next";
-      });
-    }
+    setState(() {
+      buttonText = "Submit";
+    });
+  }
+
+  void _uploadVehicalDetail() async {
+    VehicalDetail vehicalDetail = context.read<QueryPageProvider>().myVehical!;
+    print("Uploading...");
+    await FireStore().uploadVehicalDetail(vehicalDetail);
+    print("Uploaded Successfully");
   }
 }

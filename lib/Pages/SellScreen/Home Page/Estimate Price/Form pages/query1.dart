@@ -18,7 +18,9 @@ class _QueryScreen1State extends State<QueryScreen1> {
     return Column(
       children: [
         const TwoCompanyItems(),
-        Expanded(child: get2ndOption()),
+        Expanded(
+          child: get2ndOption(),
+        ),
       ],
     );
   }
