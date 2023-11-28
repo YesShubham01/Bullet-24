@@ -89,7 +89,7 @@ class FireStore {
           rearPhoto: data['rearPhoto'] ?? "",
           tankPhoto: data['tankPhoto'] ?? "",
           rcNumber: data['rcNumber'] ?? "",
-          insuranceDetails: data['insuranceDetails'] ?? "",
+          insuranceNumber: data['insuranceNumber'] ?? "",
         );
       } else {
         // Document doesn't exist
@@ -138,7 +138,7 @@ class FireStore {
         'rearPhoto': vehicalDetail.rearPhoto,
         'tankPhoto': vehicalDetail.tankPhoto,
         'rcNumber': vehicalDetail.rcNumber,
-        'insuranceDetails': vehicalDetail.insuranceDetails,
+        'insuranceNumber': vehicalDetail.insuranceNumber,
       });
     } catch (e) {
       print('Error uploading Vehical details: $e');

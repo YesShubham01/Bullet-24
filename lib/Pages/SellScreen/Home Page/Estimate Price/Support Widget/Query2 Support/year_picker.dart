@@ -32,6 +32,7 @@ class _YearPickerState extends State<YearPicker> {
             context.read<QueryPageProvider>().setYearOfRelease(selectedYear);
           }
         });
+        context.read<QueryPageProvider>().setAllowNext(true);
       },
       children: List.generate(
         2023 - 1990 + 1,

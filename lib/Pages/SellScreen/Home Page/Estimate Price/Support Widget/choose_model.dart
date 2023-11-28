@@ -173,5 +173,6 @@ class _GridModelTilesState extends State<GridModelTiles> {
           break;
       }
     });
+    context.read<QueryPageProvider>().setAllowNext(true);
   }
 }

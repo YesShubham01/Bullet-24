@@ -33,7 +33,7 @@ class TankPhoto extends StatelessWidget {
         ),
         InkWell(
             onTap: () {
-              UploadImage.showImageSourceDialog(context);
+              UploadImage.showImageSourceDialog(context, "Tank");
             },
             child: ImageUploadSection(label: label)),
         const SizedBox(height: 16.0),

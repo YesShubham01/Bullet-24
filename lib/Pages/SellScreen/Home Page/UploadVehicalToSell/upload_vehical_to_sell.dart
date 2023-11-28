@@ -93,11 +93,25 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
     }
   }
 
+  void showSnackBar(BuildContext context, String message) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        duration: const Duration(seconds: 2),
+      ),
+    );
+  }
+
   proceed() {
     if (progress < 9) {
-      setState(() {
-        progress++; // Next
-      });
+      bool allow = context.read<QueryPageProvider>().allowNext;
+      if (allow) {
+        setState(() {
+          progress++; // Next
+        });
+      } else {
+        showSnackBar(context, "Fill details to continue!");
+      }
     } else {
       // check if user has loggedin via phone or not.
       UserDetail user = context.read<MyProvider>().userDetail;

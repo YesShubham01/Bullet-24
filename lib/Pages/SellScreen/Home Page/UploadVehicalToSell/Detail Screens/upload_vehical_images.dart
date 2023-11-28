@@ -47,7 +47,7 @@ class ImageUploadSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        UploadImage.showImageSourceDialog(context);
+        UploadImage.showImageSourceDialog(context, label);
       },
       child: Container(
         height: 100,

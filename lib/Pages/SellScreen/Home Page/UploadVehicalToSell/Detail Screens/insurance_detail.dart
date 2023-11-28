@@ -46,7 +46,7 @@ class InsuranceForm extends StatelessWidget {
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
-            UploadImage.showImageSourceDialog(context);
+            UploadImage.showImageSourceDialog(context, "Insurance");
           },
           child: Container(
             height: 100,

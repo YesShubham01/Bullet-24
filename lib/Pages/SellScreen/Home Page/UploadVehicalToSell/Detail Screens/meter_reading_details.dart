@@ -53,7 +53,7 @@ class MeterReadingPhotos extends StatelessWidget {
   Widget _buildMeterPhotoSection(BuildContext context) {
     return InkWell(
       onTap: () {
-        UploadImage.showImageSourceDialog(context);
+        UploadImage.showImageSourceDialog(context, "Meter");
       },
       child: Container(
         height: 100,

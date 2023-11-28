@@ -13,6 +13,13 @@ class _QueryScreen3State extends State<QueryScreen3> {
   final meterReadingController = TextEditingController();
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<QueryPageProvider>().setAllowNext(false);
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
@@ -39,6 +46,7 @@ class _QueryScreen3State extends State<QueryScreen3> {
               int? reading = int.tryParse(value);
               if (reading != null) {
                 context.read<QueryPageProvider>().setMeterReading(reading);
+                context.read<QueryPageProvider>().setAllowNext(true);
               }
             },
           ),

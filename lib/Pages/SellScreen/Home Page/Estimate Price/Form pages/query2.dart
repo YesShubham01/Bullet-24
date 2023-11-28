@@ -1,5 +1,7 @@
+import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../Support Widget/Query2 Support/year_picker.dart';
 
@@ -11,6 +13,13 @@ class QueryScreen2 extends StatefulWidget {
 }
 
 class _QueryScreen2State extends State<QueryScreen2> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<QueryPageProvider>().setAllowNext(false);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(

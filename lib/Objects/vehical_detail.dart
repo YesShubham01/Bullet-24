@@ -29,7 +29,10 @@ class VehicalDetail {
     this.rearPhoto,
     this.tankPhoto,
     this.rcNumber,
-    this.insuranceDetails,
+    this.insuranceNumber,
+    this.meterPhoto,
+    this.rcPhoto,
+    this.insurancePhoto,
   });
 
   String ownerName;
@@ -40,10 +43,13 @@ class VehicalDetail {
   int? yearOfRelese;
   int? yearOfPurchase;
   int? meterReading;
+  String? meterPhoto;
   String? frontPhoto;
   String? sidePhoto;
   String? rearPhoto;
   String? tankPhoto;
-  String? rcNumber;
-  String? insuranceDetails;
+  int? rcNumber;
+  String? rcPhoto;
+  int? insuranceNumber;
+  String? insurancePhoto;
 }

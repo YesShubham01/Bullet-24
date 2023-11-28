@@ -46,7 +46,7 @@ class RegistrationForm extends StatelessWidget {
         const SizedBox(height: 16.0),
         InkWell(
           onTap: () {
-            UploadImage.showImageSourceDialog(context);
+            UploadImage.showImageSourceDialog(context, "RC");
           },
           child: Container(
             height: 100,

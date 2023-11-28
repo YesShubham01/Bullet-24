@@ -35,18 +35,27 @@ class DetailsResultScreen extends StatelessWidget {
               title: 'Meter Reading',
               content: vehicalDetail.meterReading?.toString() ?? ''),
           _buildInfoCard(
-              title: 'Front Photo', content: vehicalDetail.frontPhoto ?? ''),
+            title: 'Front Photo',
+            content: vehicalDetail.frontPhoto ?? '',
+          ),
           _buildInfoCard(
-              title: 'Side Photo', content: vehicalDetail.sidePhoto ?? ''),
+            title: 'Side Photo',
+            content: vehicalDetail.sidePhoto ?? '',
+          ),
           _buildInfoCard(
-              title: 'Rear Photo', content: vehicalDetail.rearPhoto ?? ''),
+            title: 'Rear Photo',
+            content: vehicalDetail.rearPhoto ?? '',
+          ),
           _buildInfoCard(
-              title: 'Tank Photo', content: vehicalDetail.tankPhoto ?? ''),
+            title: 'Tank Photo',
+            content: vehicalDetail.tankPhoto ?? '',
+          ),
           _buildInfoCard(
-              title: 'RC Number', content: vehicalDetail.rcNumber ?? ''),
+              title: 'RC Number',
+              content: (vehicalDetail.rcNumber ?? '').toString()),
           _buildInfoCard(
               title: 'Insurance Details',
-              content: vehicalDetail.insuranceDetails ?? ''),
+              content: (vehicalDetail.insuranceNumber ?? '').toString()),
           const SizedBox(height: 16.0),
         ],
       ),
