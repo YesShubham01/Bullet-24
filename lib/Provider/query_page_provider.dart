@@ -64,6 +64,12 @@ class QueryPageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setRcNumber(int reading) {
+    checkInitialisationOfVehical();
+    myVehical!.rcNumber = reading;
+    notifyListeners();
+  }
+
   void setFrontImage(String link) {
     checkInitialisationOfVehical();
     myVehical!.frontPhoto = link;
@@ -91,7 +97,7 @@ class QueryPageProvider extends ChangeNotifier {
 
   void setTankImage(String link) {
     checkInitialisationOfVehical();
-    myVehical!.meterPhoto = link;
+    myVehical!.tankPhoto = link;
     notifyListeners();
   }
 
@@ -101,9 +107,113 @@ class QueryPageProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  void setInsuranceNumber(int reading) {
+    checkInitialisationOfVehical();
+    myVehical!.insuranceNumber = reading;
+    notifyListeners();
+  }
+
   void setInsuranceImage(String link) {
     checkInitialisationOfVehical();
     myVehical!.insurancePhoto = link;
     notifyListeners();
+  }
+
+  bool isFrontImageUploaded() {
+    if (myVehical?.frontPhoto == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  bool isSideImageUploaded() {
+    if (myVehical?.sidePhoto == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  bool isRearImageUploaded() {
+    if (myVehical?.rearPhoto == null) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  void checkAllVehicalImageUploaded() {
+    if (isFrontImageUploaded() &&
+        isSideImageUploaded() &&
+        isRearImageUploaded()) {
+      setAllowNext(true);
+    } else {
+      return;
+    }
+  }
+
+  bool isMeterImageUploaded() {
+    if (myVehical?.meterPhoto == null) {
+      return false;
+    } else {
+      checkMeterPageDetailIfEntered();
+      return true;
+    }
+  }
+
+  void checkMeterPageDetailIfEntered() {
+    if ((myVehical?.meterPhoto != null) && (myVehical?.meterReading != null)) {
+      print("allowed");
+      setAllowNext(true);
+    } else {
+      return;
+    }
+  }
+
+  bool isTankImageUploaded() {
+    if (myVehical?.tankPhoto == null) {
+      return false;
+    } else {
+      setAllowNext(true);
+      return true;
+    }
+  }
+
+  bool isRcImageUploaded() {
+    if (myVehical?.rcPhoto == null) {
+      return false;
+    } else {
+      checkRcPageDetailIfEntered();
+      return true;
+    }
+  }
+
+  void checkRcPageDetailIfEntered() {
+    if ((myVehical?.rcPhoto != null) && (myVehical?.meterReading != null)) {
+      print("allowed");
+      setAllowNext(true);
+    } else {
+      return;
+    }
+  }
+
+  bool isInsuranceImageUploaded() {
+    if (myVehical?.insurancePhoto == null) {
+      return false;
+    } else {
+      checkRcPageDetailIfEntered();
+      return true;
+    }
+  }
+
+  void checkInsurancePageDetailIfEntered() {
+    if ((myVehical?.insurancePhoto != null) &&
+        (myVehical?.insuranceNumber != null)) {
+      print("allowed");
+      setAllowNext(true);
+    } else {
+      return;
+    }
   }
 }

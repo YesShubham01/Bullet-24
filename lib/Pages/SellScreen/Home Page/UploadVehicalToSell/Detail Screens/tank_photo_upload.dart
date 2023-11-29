@@ -1,10 +1,24 @@
+import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Pakages/ImagePicker/image_picker_pakage.dart';
+import 'package:provider/provider.dart';
 
 import 'upload_vehical_images.dart';
 
-class TankPhoto extends StatelessWidget {
+class TankPhoto extends StatefulWidget {
   const TankPhoto({Key? key}) : super(key: key);
+
+  @override
+  State<TankPhoto> createState() => _TankPhotoState();
+}
+
+class _TankPhotoState extends State<TankPhoto> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+    context.read<QueryPageProvider>().setAllowNext(false);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +45,21 @@ class TankPhoto extends StatelessWidget {
             ),
           ),
         ),
-        InkWell(
-            onTap: () {
-              UploadImage.showImageSourceDialog(context, "Tank");
-            },
-            child: ImageUploadSection(label: label)),
+        context.watch<QueryPageProvider>().isTankImageUploaded()
+            ? Container(
+                height: 100,
+                color: Colors.green[100],
+                child: const Center(
+                  child: Text(
+                    "Uploaded Successfully",
+                    style: TextStyle(
+                      fontSize: 16.0,
+                      color: Colors.black54,
+                    ),
+                  ),
+                ),
+              )
+            : const ImageUploadSection(label: "Tank"),
         const SizedBox(height: 16.0),
       ],
     );

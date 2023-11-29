@@ -11,14 +11,14 @@ class ProgressBar10Dots extends StatelessWidget {
       {super.key,
       required this.progress,
       this.circleSize = 15,
-      this.numberOfCircles = 9});
+      this.numberOfCircles = 8});
 
   @override
   Widget build(BuildContext context) {
     double screenWidth =
         MediaQuery.of(context).size.width - 20 - (circleSize * numberOfCircles);
     // horizontal padding is 20 and 15 is width of container * no. of container.
-    double paddingDivision = screenWidth / 11; // 10 is no. of container here.
+    double paddingDivision = screenWidth / 10; // 10 is no. of container here.
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Stack(
@@ -31,10 +31,6 @@ class ProgressBar10Dots extends StatelessWidget {
           ),
           Row(
             children: [
-              Padding(
-                padding: EdgeInsets.only(left: paddingDivision),
-                child: const CircularContainer(),
-              ),
               Padding(
                 padding: EdgeInsets.only(left: paddingDivision),
                 child: const CircularContainer(),

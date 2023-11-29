@@ -77,16 +77,14 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
     } else if (progress == 2) {
       return const QueryScreen2();
     } else if (progress == 3) {
-      return const QueryScreen3();
-    } else if (progress == 4) {
       return const FrontSideRearPhotos();
-    } else if (progress == 5) {
+    } else if (progress == 4) {
       return const MeterReadingPhotos();
-    } else if (progress == 6) {
+    } else if (progress == 5) {
       return const TankPhoto();
-    } else if (progress == 7) {
+    } else if (progress == 6) {
       return const RegistrationDetails();
-    } else if (progress == 8) {
+    } else if (progress == 7) {
       return const InsuranceDetails();
     } else {
       return const DetailsResultScreen(); // or any other default widget
@@ -103,7 +101,7 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
   }
 
   proceed() {
-    if (progress < 9) {
+    if (progress < 8) {
       bool allow = context.read<QueryPageProvider>().allowNext;
       if (allow) {
         setState(() {
