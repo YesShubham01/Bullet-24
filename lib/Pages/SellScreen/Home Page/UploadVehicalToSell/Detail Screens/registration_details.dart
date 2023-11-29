@@ -55,7 +55,7 @@ class _RegistrationFormState extends State<RegistrationForm> {
   void initState() {
     super.initState();
     _controller.text =
-        context.read<QueryPageProvider>().myVehical!.meterReading.toString();
+        context.read<QueryPageProvider>().myVehical!.rcNumber.toString();
   }
 
   @override

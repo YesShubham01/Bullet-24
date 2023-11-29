@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 class ChooseModelTile extends StatelessWidget {
   final bool isActive;
   final String text;
+  final Widget? child;
   const ChooseModelTile(
-      {super.key, required this.isActive, required this.text});
+      {super.key, required this.isActive, required this.text, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,10 @@ class ChooseModelTile extends StatelessWidget {
                 )
               ],
             ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: child,
+            ),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 5),
@@ -61,57 +66,88 @@ class GridModelTiles extends StatefulWidget {
 
 class _GridModelTilesState extends State<GridModelTiles> {
   int active = -1;
+  List<String> arrayOfModelImages = [
+    "images/Model Images/bullet-350-motorcycle-listing.jpg",
+    "images/Model Images/classic-350-motorcycle.jpg",
+    "images/Model Images/continental-gt-650-thumbnail.jpg",
+    "images/Model Images/hunter-350-motorcycle-landing.jpg",
+    "images/Model Images/interceptor-650-thumbnail.jpg",
+    "images/Model Images/meteor-350-hero-color.png.jpeg",
+    "images/Model Images/motorcycle_landing.png.jpeg",
+    "images/Model Images/new-himalayan-motorcycle-listing.jpg",
+    "images/Model Images/royal-enfield-himalayan-motorcycles.jpg",
+    "images/Model Images/scram-411-listing.jpg",
+  ];
+
+  List<String> modelNames = [
+    "Bullet 350",
+    "classic 350",
+    "Hunter 350",
+    "Scram 411",
+    "Meteor 350",
+    "Super Meteor 650",
+    "Himalayan",
+    "New Himalayan",
+    "Interceptor",
+    "Continental GT",
+  ];
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-        padding:
-            const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
-        child: SizedBox(
-          child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                if (index % 2 == 0) {
-                  return Container();
-                }
-                return Row(
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          activateTileFromIndex(index);
-                        },
-                        child: ChooseModelTile(
-                            isActive: (index == active), text: "Model $index"),
+      padding: const EdgeInsets.only(left: 30, right: 30, top: 20, bottom: 20),
+      child: SizedBox(
+        child: ListView.builder(
+          itemCount: arrayOfModelImages.length ~/ 2,
+          itemBuilder: (context, index) {
+            final firstTileIndex = index * 2;
+            final secondTileIndex = index * 2 + 1;
+
+            return Row(
+              children: [
+                const SizedBox(width: 10),
+                Expanded(
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      activateTileFromIndex(firstTileIndex);
+                    },
+                    child: ChooseModelTile(
+                      isActive: (firstTileIndex == active),
+                      text: modelNames[firstTileIndex],
+                      child: Image.asset(
+                        arrayOfModelImages[firstTileIndex],
+                        fit: BoxFit.cover, // Set BoxFit property
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Expanded(
-                      child: InkWell(
-                        highlightColor: Colors.transparent,
-                        splashColor: Colors.transparent,
-                        onTap: () {
-                          activateTileFromIndex(index + 1);
-                        },
-                        child: ChooseModelTile(
-                            isActive: ((index + 1) == active),
-                            text: "Model ${index + 1}"),
+                  ),
+                ),
+                const SizedBox(width: 10),
+                Expanded(
+                  child: InkWell(
+                    highlightColor: Colors.transparent,
+                    splashColor: Colors.transparent,
+                    onTap: () {
+                      activateTileFromIndex(secondTileIndex);
+                    },
+                    child: ChooseModelTile(
+                      isActive: (secondTileIndex == active),
+                      text: modelNames[secondTileIndex],
+                      child: Image.asset(
+                        arrayOfModelImages[secondTileIndex],
+                        fit: BoxFit.cover, // Set BoxFit property
                       ),
                     ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                  ],
-                );
-              }),
-        ));
+                  ),
+                ),
+                const SizedBox(width: 10),
+              ],
+            );
+          },
+        ),
+      ),
+    );
   }
 
   activateTileFromIndex(int index) {

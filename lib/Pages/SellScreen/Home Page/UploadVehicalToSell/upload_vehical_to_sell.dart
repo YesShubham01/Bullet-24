@@ -133,7 +133,7 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
   void _uploadVehicalDetail() async {
     VehicalDetail vehicalDetail = context.read<QueryPageProvider>().myVehical!;
     print("Uploading...");
-    await FireStore().uploadVehicalDetail(vehicalDetail);
+    await FireStore.uploadVehicalDetail(vehicalDetail);
     print("Uploaded Successfully");
   }
 }

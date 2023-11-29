@@ -63,45 +63,54 @@ class FireStore {
     }
   }
 
-  static Future<VehicalDetail> fetchVehicalDetail() async {
+  static Future<List<VehicalDetail>> fetchAllVehicalDetails() async {
     try {
-      DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
-          .collection('Active Vehicals')
-          .doc('001')
-          .get();
+      // Get a reference to the Firestore database
+      FirebaseFirestore firestore = FirebaseFirestore.instance;
 
-      if (documentSnapshot.exists) {
-        Map<String, dynamic> data =
-            documentSnapshot.data() as Map<String, dynamic>;
+      // Get all documents from the "Active Vehicals" collection
+      QuerySnapshot querySnapshot =
+          await firestore.collection('Active Vehicals').get();
 
-        return VehicalDetail(
-          ownerName: data['ownerName'] ??
-              "", // Replace 'ownerName' with the actual field name in your Firestore document
-          number: data['number'] ?? "",
-          company: Company.values[data['company'] ?? 0],
-          model: BulletModel.values[data['model'] ?? 0],
-          estPrice: data['estPrice'] ?? "",
-          yearOfRelese: data['yearOfRelese'] ?? 0,
-          yearOfPurchase: data['yearOfPurchase'] ?? 0,
-          meterReading: data['meterReading'] ?? 0,
-          frontPhoto: data['frontPhoto'] ?? "",
-          sidePhoto: data['sidePhoto'] ?? "",
-          rearPhoto: data['rearPhoto'] ?? "",
-          tankPhoto: data['tankPhoto'] ?? "",
-          rcNumber: data['rcNumber'] ?? "",
-          insuranceNumber: data['insuranceNumber'] ?? "",
-        );
-      } else {
-        // Document doesn't exist
-        return VehicalDetail(ownerName: "error");
-      }
+      // Process the documents in the snapshot
+      List<VehicalDetail> vehicalDetailsList =
+          querySnapshot.docs.map((DocumentSnapshot document) {
+        Map<String, dynamic>? data = document.data() as Map<String, dynamic>?;
+
+        if (data != null) {
+          return VehicalDetail(
+            ownerName:
+                data['ownerName'] ?? "", // Replace with actual field name
+            number: data['number'] ?? "",
+            company:
+                Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
+            model:
+                BulletModel.values[data['model'] ?? 0] ?? BulletModel.bullet350,
+            estPrice: data['estPrice'] ?? "",
+            yearOfRelese: data['yearOfRelese'] ?? 0,
+            yearOfPurchase: data['yearOfPurchase'] ?? 0,
+            meterReading: data['meterReading'] ?? 0,
+            frontPhoto: data['frontPhoto'] ?? "",
+            sidePhoto: data['sidePhoto'] ?? "",
+            rearPhoto: data['rearPhoto'] ?? "",
+            tankPhoto: data['tankPhoto'] ?? "",
+            rcNumber: data['rcNumber'] ?? "",
+            insuranceNumber: data['insuranceNumber'] ?? "",
+          );
+        } else {
+          print('Data in Firestore document is null.');
+          return VehicalDetail(ownerName: "error");
+        }
+      }).toList();
+
+      return vehicalDetailsList;
     } catch (e) {
       print('Error retrieving Vehical details: $e');
-      return VehicalDetail(ownerName: "error");
+      return [VehicalDetail(ownerName: "error")];
     }
   }
 
-  Future<String?> getUserId() async {
+  static Future<String?> getUserId() async {
     try {
       User? user = FirebaseAuth.instance.currentUser;
       if (user != null) {
@@ -118,7 +127,7 @@ class FireStore {
   }
 
 // function to upload Vehical Details.
-  Future<void> uploadVehicalDetail(VehicalDetail vehicalDetail) async {
+  static Future<void> uploadVehicalDetail(VehicalDetail vehicalDetail) async {
     try {
       String? userId = await getUserId();
       await FirebaseFirestore.instance

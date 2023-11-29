@@ -1,13 +1,11 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:flutter/material.dart';
 
-class ItemPage extends StatefulWidget {
-  const ItemPage({super.key});
+class ItemPage extends StatelessWidget {
+  final VehicalDetail vehicalDetail;
 
-  @override
-  State<ItemPage> createState() => _ItemPageState();
-}
+  const ItemPage({Key? key, required this.vehicalDetail}) : super(key: key);
 
-class _ItemPageState extends State<ItemPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,54 +21,68 @@ class _ItemPageState extends State<ItemPage> {
       ),
       body: ListView(
         children: [
-          // Image of the Tesla Model 3
-          const Image(
-            image: NetworkImage(
-              'https://www.royalenfield.com/content/dam/royal-enfield/india/motorcycles/classic-350/landing/classic-350-motorcycle.jpg',
-            ),
+          // Image of the Vehical
+          Image.network(
+            vehicalDetail.frontPhoto ??
+                "https://www.royalenfield.com/content/dam/royal-enfield/india/motorcycles/classic-350/landing/classic-350-motorcycle.jpg",
+            height: 200,
+            width: double.infinity,
+            fit: BoxFit.cover,
           ),
 
-          // Car details
-          const Padding(
-            padding: EdgeInsets.all(16.0),
+          // Vehical details
+          Padding(
+            padding: const EdgeInsets.all(16.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text('Classic 350', style: TextStyle(fontSize: 24.0)),
-                Text('Rs. 18,00,000.00', style: TextStyle(fontSize: 16.0)),
                 Text(
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam nam eu nulla a. Vestibulum aliquet facilisi interdum nibh blandit Read more.....',
-                    style: TextStyle(fontSize: 14.0)),
+                  vehicalDetail.ownerName,
+                  style: const TextStyle(fontSize: 24.0),
+                ),
+                Text(
+                  '\$${vehicalDetail.estPrice}',
+                  style: const TextStyle(fontSize: 16.0),
+                ),
+                const Text(
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam nam eu nulla a. Vestibulum aliquet facilisi interdum nibh blandit Read more.....',
+                  style: TextStyle(fontSize: 14.0),
+                ),
 
                 // Features
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Text('Autopilot'),
-                    Text('Contact Dealer'),
+                    const Text('Autopilot'),
+                    ElevatedButton(
+                      onPressed: () {
+                        // Implement the action for the "Contact Dealer" button
+                      },
+                      child: const Text('Contact Dealer'),
+                    ),
                   ],
                 ),
 
                 // 360° Camera
-                Center(
+                const Center(
                   child: Text('360° Camera'),
                 ),
 
                 // See All
-                Center(
+                const Center(
                   child: Text('See All'),
                 ),
               ],
             ),
           ),
 
-          // Car details (Model year.)
+          // Vehical details (Model year.)
           const Padding(
             padding: EdgeInsets.all(16.0),
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text('Car details (Model year.)'),
+                Text('Vehical details (Model year.)'),
                 Text('Dehli, India'),
               ],
             ),
@@ -86,7 +98,9 @@ class _ItemPageState extends State<ItemPage> {
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: () {
+                // Implement the action for the "Buy Now" button
+              },
               child: const Text('Buy Now'),
             ),
           ),

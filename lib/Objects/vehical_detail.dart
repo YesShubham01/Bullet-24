@@ -28,8 +28,8 @@ class VehicalDetail {
     this.sidePhoto,
     this.rearPhoto,
     this.tankPhoto,
-    this.rcNumber,
-    this.insuranceNumber,
+    this.rcNumber, // Change type to dynamic
+    this.insuranceNumber, // Change type to dynamic
     this.meterPhoto,
     this.rcPhoto,
     this.insurancePhoto,
@@ -48,8 +48,8 @@ class VehicalDetail {
   String? sidePhoto;
   String? rearPhoto;
   String? tankPhoto;
-  int? rcNumber;
+  dynamic rcNumber; // Change type to dynamic
   String? rcPhoto;
-  int? insuranceNumber;
+  dynamic insuranceNumber; // Change type to dynamic
   String? insurancePhoto;
 }

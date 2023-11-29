@@ -7,8 +7,9 @@ import 'package:provider/provider.dart';
 class CompanyItemTile extends StatelessWidget {
   final int isActive;
   final String text;
+  final Widget? child;
   const CompanyItemTile(
-      {super.key, required this.isActive, required this.text});
+      {super.key, required this.isActive, required this.text, this.child});
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +37,7 @@ class CompanyItemTile extends StatelessWidget {
                 )
               ],
             ),
+            child: child,
           ),
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 5),
@@ -101,7 +103,15 @@ class _TwoCompanyItemsState extends State<TwoCompanyItems> {
               onTap: () {
                 select_1();
               },
-              child: CompanyItemTile(isActive: tile1, text: "Royal Enfield"),
+              child: CompanyItemTile(
+                isActive: tile1,
+                text: "Royal Enfield",
+                child: const Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child:
+                      Image(image: AssetImage("images/royal_enfeild_logo.png")),
+                ),
+              ),
             ),
           ),
           Expanded(
@@ -115,6 +125,10 @@ class _TwoCompanyItemsState extends State<TwoCompanyItems> {
               child: CompanyItemTile(
                 isActive: tile2,
                 text: "Others",
+                child: const Padding(
+                  padding: EdgeInsets.all(4.0),
+                  child: Image(image: AssetImage("images/OtherCompany.png")),
+                ),
               ),
             ),
           ),

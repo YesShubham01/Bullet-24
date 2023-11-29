@@ -1,22 +1,47 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/BuyScreen/Support%20Widget/Suggestions%20Section/double_item_tiles.dart';
 import 'package:bullet24/Pages/BuyScreen/Support%20Widget/Suggestions%20Section/suggestion_title.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
 
-class SuggestionSection extends StatefulWidget {
-  const SuggestionSection({super.key});
+class SuggestionSection extends StatelessWidget {
+  const SuggestionSection({Key? key}) : super(key: key);
 
-  @override
-  State<SuggestionSection> createState() => _SuggestionSectionState();
-}
-
-class _SuggestionSectionState extends State<SuggestionSection> {
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: [
-        SuggestionSectionTitle(),
-        DoubleVehicalItemTile(),
-        DoubleVehicalItemTile(),
+        const SuggestionSectionTitle(),
+        // Use FutureBuilder to handle asynchronous data fetching
+        FutureBuilder<List<VehicalDetail>>(
+          future: FireStore.fetchAllVehicalDetails(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              // Show a loading indicator while data is being fetched
+              return const CircularProgressIndicator();
+            } else if (snapshot.hasError) {
+              // Show an error message if there's an error
+              return Text('Error: ${snapshot.error}');
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              // Show a message if no data is available
+              return const Text('No vehicle details available.');
+            } else {
+              // Display DoubleVehicalItemTile for each item in suggestionList
+              List<VehicalDetail> suggestionList = snapshot.data!;
+              return Column(
+                children: [
+                  for (int i = 0; i < suggestionList.length; i += 2)
+                    DoubleVehicalItemTile(
+                      firstVehical: suggestionList[i],
+                      secondVehical: (i + 1 < suggestionList.length)
+                          ? suggestionList[i + 1]
+                          : null,
+                    ),
+                ],
+              );
+            }
+          },
+        ),
       ],
     );
   }

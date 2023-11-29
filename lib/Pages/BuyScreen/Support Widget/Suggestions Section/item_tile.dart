@@ -1,22 +1,27 @@
+import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/BuyScreen/Item%20Page/item_page.dart';
 import 'package:flutter/material.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 
 class VehicalItemTile extends StatelessWidget {
-  const VehicalItemTile({super.key});
+  final VehicalDetail vehicalDetail;
+
+  const VehicalItemTile({Key? key, required this.vehicalDetail})
+      : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(top: 10),
       child: Column(
-        crossAxisAlignment:
-            CrossAxisAlignment.start, // Align children to the start (left)
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => const ItemPage()));
+              // You may want to navigate to a detailed page with vehicalDetail
+              Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) =>
+                      ItemPage(vehicalDetail: vehicalDetail)));
             },
             child: Container(
               height: 140,
@@ -32,16 +37,16 @@ class VehicalItemTile extends StatelessWidget {
                     blurRadius: 4,
                     offset: const Offset(-2, 6),
                     spreadRadius: 0,
-                  )
+                  ),
                 ],
               ),
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(top: 10, left: 5),
+          Padding(
+            padding: const EdgeInsets.only(top: 10, left: 5),
             child: Text(
-              "Name of model",
-              style: TextStyle(
+              vehicalDetail.ownerName, // Use actual property from VehicalDetail
+              style: const TextStyle(
                 fontSize: 14,
               ),
             ),
@@ -49,7 +54,7 @@ class VehicalItemTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(left: 5),
             child: Text(
-              "\$ price",
+              "\$${vehicalDetail.estPrice}", // Use actual property from VehicalDetail
               style: TextStyle(
                 fontSize: 14,
                 color: B_TNAV_COLOR,
