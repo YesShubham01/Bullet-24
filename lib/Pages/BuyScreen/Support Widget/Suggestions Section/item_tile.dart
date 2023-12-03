@@ -6,8 +6,7 @@ import 'package:bullet24/Res/Theme/theme.dart';
 class VehicalItemTile extends StatelessWidget {
   final VehicalDetail vehicalDetail;
 
-  const VehicalItemTile({Key? key, required this.vehicalDetail})
-      : super(key: key);
+  VehicalItemTile({Key? key, required this.vehicalDetail}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -40,6 +39,13 @@ class VehicalItemTile extends StatelessWidget {
                   ),
                 ],
               ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(20),
+                child: Image.asset(
+                  _getFromVehicalModel(vehicalDetail),
+                  fit: BoxFit.cover, // Set BoxFit property
+                ),
+              ),
             ),
           ),
           Padding(
@@ -64,5 +70,34 @@ class VehicalItemTile extends StatelessWidget {
         ],
       ),
     );
+  }
+
+  final Map<String, String> modelImageMap = {
+    'bullet350': "images/Model Images/bullet-350-motorcycle-listing.jpg",
+    'classic350': "images/Model Images/classic-350-motorcycle.jpg",
+    'hunter350': "images/Model Images/hunter-350-motorcycle-landing.jpg",
+    'scram411': "images/Model Images/scram-411-listing.jpg",
+    'meteor350': "images/Model Images/meteor-350-hero-color.png.jpeg",
+    'superMeteor650': "images/Model Images/motorcycle_landing.png.jpeg",
+    'himalayan': "images/Model Images/royal-enfield-himalayan-motorcycles.jpg",
+    'newHimalayan': "images/Model Images/new-himalayan-motorcycle-listing.jpg",
+    'interceptor': "images/Model Images/interceptor-650-thumbnail.jpg",
+    'continentalGT': "images/Model Images/continental-gt-650-thumbnail.jpg",
+  };
+
+  String _getFromVehicalModel(VehicalDetail vehicalDetail) {
+    //check if it is a bullet.
+
+    // Convert the BulletModel to a string
+    String modelName = vehicalDetail.model?.toString().split('.').last ?? '';
+    print(modelName);
+
+    // Check if it is a valid model name
+    if (modelImageMap.containsKey(modelName)) {
+      return modelImageMap[modelName]!;
+    } else {
+      // If the model name is not found, return a default image link
+      return "images/Model Images/continental-gt-650-thumbnail.jpg";
+    }
   }
 }
