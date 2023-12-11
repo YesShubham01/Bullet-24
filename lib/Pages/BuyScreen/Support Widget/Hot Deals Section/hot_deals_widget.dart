@@ -9,15 +9,29 @@ class HotDealsSection extends StatefulWidget {
 }
 
 class _HotDealsSectionState extends State<HotDealsSection> {
+  final List<String> model = [
+    'bullet350',
+    'classic350',
+    'hunter350',
+    'scram411',
+    'meteor350',
+    'superMeteor650',
+    'himalayan',
+    'newHimalayan',
+    'interceptor',
+    'continentalGT',
+  ];
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 200,
       child: ListView.builder(
-          itemCount: 4,
+          itemCount: model.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return const HotDealSectionCard();
+            return HotDealSectionCard(
+              model: model[index],
+            );
           }),
     );
   }

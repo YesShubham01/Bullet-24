@@ -1,110 +1,222 @@
+import 'dart:async';
+
 import 'package:bullet24/Objects/vehical_detail.dart';
+import 'package:bullet24/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
-class ItemPage extends StatelessWidget {
+class ItemPage extends StatefulWidget {
   final VehicalDetail vehicalDetail;
 
   const ItemPage({Key? key, required this.vehicalDetail}) : super(key: key);
 
   @override
+  State<ItemPage> createState() => _ItemPageState();
+}
+
+class _ItemPageState extends State<ItemPage> {
+  late PageController _pageController;
+  late Timer _timer;
+  int _currentPage = 0;
+
+  @override
+  void initState() {
+    super.initState();
+    _pageController = PageController(initialPage: 0);
+
+    // Set up a timer to automatically scroll every 2 seconds
+    _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
+      if (_currentPage < 2) {
+        _currentPage++;
+      } else {
+        _currentPage = 0;
+      }
+      _pageController.animateToPage(_currentPage,
+          duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
+    });
+  }
+
+  void _onPageChanged(int page) {
+    setState(() {
+      _currentPage = page;
+    });
+  }
+
+  @override
+  void dispose() {
+    _pageController.dispose();
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    String defaultPhotoUrl =
+        "https://firebasestorage.googleapis.com/v0/b/bullet-24.appspot.com/o/images%2F2023-11-28%2023%3A42%3A40.316287.png?alt=media&token=f5e769bc-d076-4548-a08c-b97b106d19ea";
     return Scaffold(
       appBar: AppBar(
+        title: Text(
+            widget.vehicalDetail.model.toString()), // Use model name in title
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.pop(context), // Implement back button
+        ),
         actions: <Widget>[
           IconButton(
             icon: const Icon(
               Icons.notifications,
             ),
-            onPressed: () {},
+            onPressed: () {
+              // Implement the action for the notifications icon
+            },
           ),
         ],
       ),
-      body: ListView(
-        children: [
-          // Image of the Vehical
-          Image.network(
-            vehicalDetail.frontPhoto ??
-                "https://www.royalenfield.com/content/dam/royal-enfield/india/motorcycles/classic-350/landing/classic-350-motorcycle.jpg",
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-
-          // Vehical details
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  vehicalDetail.ownerName,
-                  style: const TextStyle(fontSize: 24.0),
+      body: SingleChildScrollView(
+        // Use SingleChildScrollView for better scrolling
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              // Image of the Vehicle
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-                Text(
-                  '\$${vehicalDetail.estPrice}',
-                  style: const TextStyle(fontSize: 16.0),
-                ),
-                const Text(
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas diam nam eu nulla a. Vestibulum aliquet facilisi interdum nibh blandit Read more.....',
-                  style: TextStyle(fontSize: 14.0),
-                ),
-
-                // Features
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    const Text('Autopilot'),
-                    ElevatedButton(
-                      onPressed: () {
-                        // Implement the action for the "Contact Dealer" button
-                      },
-                      child: const Text('Contact Dealer'),
+                child: // Horizontal scrollable photos
+                    GestureDetector(
+                  onHorizontalDragEnd: (details) {
+                    if (details.primaryVelocity! > 0) {
+                      // Swipe right
+                      if (_currentPage > 0) {
+                        _pageController.previousPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    } else if (details.primaryVelocity! < 0) {
+                      // Swipe left
+                      if (_currentPage < 2) {
+                        _pageController.nextPage(
+                          duration: const Duration(milliseconds: 300),
+                          curve: Curves.easeInOut,
+                        );
+                      }
+                    }
+                  },
+                  child: SizedBox(
+                    height: 200,
+                    child: PageView(
+                      controller: _pageController,
+                      onPageChanged: _onPageChanged,
+                      children: [
+                        Image.network(
+                          widget.vehicalDetail.sidePhoto ?? defaultPhotoUrl,
+                          key: Key(widget.vehicalDetail.sidePhoto ??
+                              defaultPhotoUrl),
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          widget.vehicalDetail.rearPhoto ?? defaultPhotoUrl,
+                          key: Key(widget.vehicalDetail.rearPhoto ??
+                              defaultPhotoUrl),
+                          fit: BoxFit.cover,
+                        ),
+                        Image.network(
+                          widget.vehicalDetail.frontPhoto ?? defaultPhotoUrl,
+                          key: Key(widget.vehicalDetail.frontPhoto ??
+                              defaultPhotoUrl),
+                          fit: BoxFit.cover,
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
+              ),
 
-                // 360° Camera
-                const Center(
-                  child: Text('360° Camera'),
+              // Vehicle details
+              const SizedBox(height: 16.0), // Add space between sections
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
                 ),
-
-                // See All
-                const Center(
-                  child: Text('See All'),
+                child: Padding(
+                  padding: const EdgeInsets.all(16.0),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        'Owner: ${widget.vehicalDetail.ownerName}',
+                        style: const TextStyle(fontSize: 18.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Price: \$${widget.vehicalDetail.estPrice}',
+                        style: const TextStyle(fontSize: 16.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Year of Purchase: ${widget.vehicalDetail.yearOfPurchase}',
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Meter Reading: ${widget.vehicalDetail.meterReading} km',
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ),
+              ),
 
-          // Vehical details (Model year.)
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text('Vehical details (Model year.)'),
-                Text('Dehli, India'),
-              ],
-            ),
-          ),
+              // Vehicle details (Model year.)
+              const SizedBox(height: 16.0),
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text('Vehicle details (Model year.)'),
+                    ],
+                  ),
+                ),
+              ),
 
-          // EMI/Loan
-          const Padding(
-            padding: EdgeInsets.all(16.0),
-            child: Text('EMI/Loan'),
-          ),
+              // EMI/Loan
+              const SizedBox(height: 16.0),
+              Card(
+                elevation: 5.0,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10.0),
+                ),
+                child: const Padding(
+                  padding: EdgeInsets.all(16.0),
+                  child: Text('EMI/Loan: To be added'), // Placeholder text
+                ),
+              ),
 
-          // Buy Now
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: ElevatedButton(
-              onPressed: () {
-                // Implement the action for the "Buy Now" button
-              },
-              child: const Text('Buy Now'),
-            ),
+              // Buy Now
+              const SizedBox(height: 16.0),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: CustomElevatedButton(
+                  ontap: () {
+                    // Implement the action for the "Buy Now" button
+                  },
+                  text: "Buy now",
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

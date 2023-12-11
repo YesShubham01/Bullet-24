@@ -6,6 +6,9 @@ Project Description
 
 ### Todo
 
+- [ ] quick access button to switch between sell and buy (like cars24)  
+- [ ] implement search and filters.  
+- [ ] Display all the fetched data  
 - [ ] Bidding System  
 - [ ] firestore file name is userid : one user one bike. Fix that by modifying file name saving.  
 - [ ] Payment  
@@ -14,8 +17,8 @@ Project Description
 
 ### In Progress
 
-- [ ] HardCode official images  
 
 ### Done ✓
 
+- [x] HardCode official images  
 

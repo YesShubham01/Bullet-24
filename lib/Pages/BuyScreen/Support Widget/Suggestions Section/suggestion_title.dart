@@ -5,19 +5,19 @@ class SuggestionSectionTitle extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+    return const Padding(
+      padding: EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
-          const Text(
-            "Suggestion",
+          Text(
+            "Suggestions",
             style: TextStyle(
-              fontSize: 18,
+              fontSize: 20,
               fontWeight: FontWeight.w600,
             ),
           ),
-          const Spacer(),
-          TextButton(onPressed: () {}, child: const Text("See more"))
+          // Spacer(),
+          // TextButton(onPressed: () {}, child: const Text("See more"))
         ],
       ),
     );
