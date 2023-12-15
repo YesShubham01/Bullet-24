@@ -15,6 +15,13 @@ class Authenticate {
     }
   }
 
+  //fetch username
+  static String getUserName() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    return auth.currentUser?.displayName ?? "Error";
+  }
+
   // sign out
   static sign_out() async {
     await FirebaseAuth.instance.signOut();

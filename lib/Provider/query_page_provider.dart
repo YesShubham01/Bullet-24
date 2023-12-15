@@ -1,4 +1,5 @@
 import 'package:bullet24/Objects/vehical_detail.dart';
+import 'package:bullet24/Services/FireAuth%20Service/authentication.dart';
 import 'package:flutter/material.dart';
 
 class QueryPageProvider extends ChangeNotifier {
@@ -25,7 +26,7 @@ class QueryPageProvider extends ChangeNotifier {
 
   initialiseVehicalDetail() {
     // fetch username to use here
-    myVehical = VehicalDetail(ownerName: "Name");
+    myVehical = VehicalDetail(ownerName: Authenticate.getUserName());
 
     // some default values
     myVehical!.yearOfPurchase = 2000;

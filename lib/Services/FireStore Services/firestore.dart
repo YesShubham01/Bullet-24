@@ -132,7 +132,7 @@ class FireStore {
       String? userId = await getUserId();
       await FirebaseFirestore.instance
           .collection('Active Vehicals')
-          .doc("${userId}_2")
+          .doc("$userId")
           .set({
         'ownerName': vehicalDetail.ownerName,
         'number': vehicalDetail.number,

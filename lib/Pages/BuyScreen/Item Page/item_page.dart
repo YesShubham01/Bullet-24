@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:bullet24/Objects/vehical_detail.dart';
+import 'package:bullet24/Pages/Payment/payment_page.dart';
 import 'package:bullet24/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
 
@@ -48,6 +49,23 @@ class _ItemPageState extends State<ItemPage> {
     super.dispose();
   }
 
+  final Map<String, String> modelMap = {
+    'BulletModel.bullet350': 'Bullet 350',
+    'BulletModel.classic350': 'Classic 350',
+    'BulletModel.hunter350': 'Hunter 350',
+    'BulletModel.scram411': 'Scram 411',
+    'BulletModel.meteor350': 'Meteor 350',
+    'BulletModel.superMeteor650': 'Super Meteor 650',
+    'BulletModel.himalayan': 'Himalayan',
+    'BulletModel.newHimalayan': 'New Himalayan',
+    'BulletModel.interceptor': 'Interceptor',
+    'BulletModel.continentalGT': 'Continental GT',
+  };
+
+  String modelToName(String model) {
+    return modelMap[model] ?? "Error";
+  }
+
   @override
   Widget build(BuildContext context) {
     String defaultPhotoUrl =
@@ -55,7 +73,10 @@ class _ItemPageState extends State<ItemPage> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-            widget.vehicalDetail.model.toString()), // Use model name in title
+          modelToName(
+            widget.vehicalDetail.model.toString(),
+          ),
+        ), // Use model name in title
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.pop(context), // Implement back button
@@ -148,7 +169,7 @@ class _ItemPageState extends State<ItemPage> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Owner: ${widget.vehicalDetail.ownerName}',
+                        'Model: ${modelToName(widget.vehicalDetail.model.toString())}',
                         style: const TextStyle(fontSize: 18.0),
                       ),
                       const SizedBox(height: 8.0),
@@ -210,6 +231,10 @@ class _ItemPageState extends State<ItemPage> {
                 child: CustomElevatedButton(
                   ontap: () {
                     // Implement the action for the "Buy Now" button
+                    Navigator.of(context).pushReplacement(MaterialPageRoute(
+                        builder: (context) => PaymentPage(
+                            amount: convertStringToInt(
+                                widget.vehicalDetail.estPrice!))));
                   },
                   text: "Buy now",
                 ),
@@ -219,5 +244,19 @@ class _ItemPageState extends State<ItemPage> {
         ),
       ),
     );
+  }
+
+  int convertStringToInt(String input) {
+    // Remove commas from the string
+    String sanitizedInput = input.replaceAll(',', '');
+
+    // Parse the sanitized string to an integer
+    try {
+      return int.parse(sanitizedInput);
+    } catch (e) {
+      // Handle parsing errors if needed
+      print('Error converting string to int: $e');
+      return 0; // Default value or handle the error accordingly
+    }
   }
 }

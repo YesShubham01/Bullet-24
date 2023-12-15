@@ -8,6 +8,23 @@ class VehicalItemTile extends StatelessWidget {
 
   VehicalItemTile({Key? key, required this.vehicalDetail}) : super(key: key);
 
+  final Map<String, String> modelMap = {
+    'BulletModel.bullet350': 'Bullet 350',
+    'BulletModel.classic350': 'Classic 350',
+    'BulletModel.hunter350': 'Hunter 350',
+    'BulletModel.scram411': 'Scram 411',
+    'BulletModel.meteor350': 'Meteor 350',
+    'BulletModel.superMeteor650': 'Super Meteor 650',
+    'BulletModel.himalayan': 'Himalayan',
+    'BulletModel.newHimalayan': 'New Himalayan',
+    'BulletModel.interceptor': 'Interceptor',
+    'BulletModel.continentalGT': 'Continental GT',
+  };
+
+  String modelToName(String model) {
+    return modelMap[model] ?? "Error";
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -51,7 +68,9 @@ class VehicalItemTile extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(top: 10, left: 5),
             child: Text(
-              vehicalDetail.ownerName, // Use actual property from VehicalDetail
+              modelToName(
+                vehicalDetail.model.toString(),
+              ), // Use actual property from VehicalDetail
               style: const TextStyle(
                 fontSize: 14,
               ),
