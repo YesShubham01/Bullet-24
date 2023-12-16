@@ -1,3 +1,4 @@
+import 'package:bullet24/Pages/ChatPage/chatpage.dart';
 import 'package:bullet24/Pages/Splash%20Page/splash_page.dart';
 import 'package:bullet24/Provider/my_provider.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
@@ -21,7 +22,7 @@ class UserProfile extends StatelessWidget {
         children: [
           _buildProfileHeader(name, phone, link),
           const SizedBox(height: 16.0),
-          _buildLastActivities(),
+          _buildLastActivities(context),
           _buildLogoutButton(context),
         ],
       ),
@@ -84,7 +85,7 @@ class UserProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildLastActivities() {
+  Widget _buildLastActivities(BuildContext context) {
     return Expanded(
       child: Card(
         shadowColor: shadow_false,
@@ -109,9 +110,12 @@ class UserProfile extends StatelessWidget {
                   ),
                 ),
                 const SizedBox(height: 16.0),
-                _buildActivityCard('Activity 1', 'Details of activity 1'),
-                _buildActivityCard('Activity 2', 'Details of activity 2'),
-                _buildActivityCard('Activity 3', 'Details of activity 3'),
+                _buildActivityCard(
+                    'Activity 1', 'Details of activity 1', context),
+                _buildActivityCard(
+                    'Activity 2', 'Details of activity 2', context),
+                _buildActivityCard(
+                    'Activity 3', 'Details of activity 3', context),
                 // Add more activity cards as needed
               ],
             ),
@@ -121,7 +125,8 @@ class UserProfile extends StatelessWidget {
     );
   }
 
-  Widget _buildActivityCard(String title, String details) {
+  Widget _buildActivityCard(
+      String title, String details, BuildContext context) {
     return Card(
       elevation: 4.0,
       shadowColor: shadow_false,
@@ -137,9 +142,10 @@ class UserProfile extends StatelessWidget {
           ),
         ),
         subtitle: Text(details),
-        onTap: () {
-          // Handle the tap on the activity card
-        },
+        onTap: () => Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => const ChatPage()),
+        ),
       ),
     );
   }

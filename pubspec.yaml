@@ -45,6 +45,8 @@ dependencies:
   firebase_storage: ^11.5.3
   flutter_stripe: ^9.4.0
   http: ^1.1.0
+  flutter_chat_ui: ^1.6.10
+  uuid: ^4.2.2
 
 dev_dependencies:
   flutter_test:
