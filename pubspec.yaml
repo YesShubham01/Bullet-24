@@ -43,6 +43,8 @@ dependencies:
   pinput: ^3.0.1
   cloud_firestore: ^4.13.1
   firebase_storage: ^11.5.3
+  flutter_stripe: ^9.4.0
+  http: ^1.1.0
 
 dev_dependencies:
   flutter_test:

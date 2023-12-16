@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/Payment/payment_page.dart';
 import 'package:bullet24/Widgets/custom_elevated_button.dart';
