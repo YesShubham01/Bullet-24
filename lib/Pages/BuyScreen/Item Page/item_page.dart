@@ -230,10 +230,54 @@ class _ItemPageState extends State<ItemPage> {
                 child: CustomElevatedButton(
                   ontap: () {
                     // Implement the action for the "Buy Now" button
-                    Navigator.of(context).pushReplacement(MaterialPageRoute(
-                        builder: (context) => PaymentPage(
-                            amount: convertStringToInt(
-                                widget.vehicalDetail.estPrice!))));
+                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
+                    //     builder: (context) => PaymentPage(
+                    //         amount: convertStringToInt(
+                    //             widget.vehicalDetail.estPrice!))));
+
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: const Text("Confirmation"),
+                          actions: [
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: CustomElevatedButton(
+                                    ontap: () {
+                                      // Implement the action for Bid button
+                                      // For now, you can add your logic or leave it empty
+                                      Navigator.of(context).pop();
+                                    },
+                                    text: "Bid",
+                                  ),
+                                ),
+                                const SizedBox(
+                                    width:
+                                        8.0), // Add some space between buttons
+                                Expanded(
+                                  child: CustomElevatedButton(
+                                    ontap: () {
+                                      // Implement the action for Click Buy button
+                                      // For now, just navigate to the payment page as an example
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => PaymentPage(
+                                          amount: convertStringToInt(
+                                              widget.vehicalDetail.estPrice!),
+                                        ),
+                                      ));
+                                    },
+                                    text: "Buy",
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   text: "Buy now",
                 ),

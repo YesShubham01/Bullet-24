@@ -1,7 +1,9 @@
 import 'package:bullet24/Pages/BuyScreen/Home%20Page/homepage.dart';
 import 'package:bullet24/Pages/Notification%20Page/sell_notification.dart';
+import 'package:bullet24/Provider/my_provider.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../Profile Page/profile_page.dart';
 
@@ -26,21 +28,35 @@ class _BuyScreenState extends State<BuyScreen> {
     });
   }
 
+  isNotificationNumber(String? number) {
+    if (number == null) {
+      return null;
+    } else {
+      return Text(number);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    String? notificationNumber =
+        context.read<MyProvider>().getNotificationNumber();
+
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
         title: const Text("Bullet 24"),
         actions: <Widget>[
           IconButton(
-            icon: const Icon(
-              Icons.notifications,
+            icon: Badge(
+              label: isNotificationNumber(notificationNumber),
+              child: const Icon(
+                Icons.notifications,
+              ),
             ),
             onPressed: () {
               Navigator.of(context).push(
                 MaterialPageRoute(
-                  builder: (context) => NotificationPage(),
+                  builder: (context) => const NotificationPage(),
                 ),
               );
             },

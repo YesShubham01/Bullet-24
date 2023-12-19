@@ -6,14 +6,11 @@ Project Description
 
 ### Todo
 
+- [ ] ChatPage backend  
 - [ ] quick access button to switch between sell and buy (like cars24)  
 - [ ] implement search and filters.  
-- [ ] Display all the fetched data  
-- [ ] Bidding System  
 - [ ] firestore file name is userid : one user one bike. Fix that by modifying file name saving.  
-- [ ] Payment  
-- [ ] notification  
-- [ ] Fetch data and show in buyScreen  
+- [ ] Bidding System  
 
 ### In Progress
 
@@ -21,4 +18,8 @@ Project Description
 ### Done ✓
 
 - [x] HardCode official images  
+- [x] Display all the fetched data  
+- [x] Payment  
+- [x] Fetch data and show in buyScreen  
+- [x] notification  
 

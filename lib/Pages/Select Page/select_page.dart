@@ -3,6 +3,7 @@ import 'package:bullet24/Pages/Select%20Page/Support%20Widget/animated_continue_
 import 'package:bullet24/Pages/Select%20Page/Support%20Widget/title_text_1.dart';
 import 'package:bullet24/Pages/SellScreen/sell_screen.dart';
 import 'package:bullet24/Provider/my_provider.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -47,6 +48,9 @@ class _SelectPageState extends State<SelectPage> {
     super.initState();
     String? username = FirebaseAuth.instance.currentUser?.displayName;
     context.read<MyProvider>().setUserName(username);
+    context.read<MyProvider>().setNotification(context);
+
+    FireStore.checkUserDocument(context);
   }
 
   @override

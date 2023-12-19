@@ -1,0 +1,2 @@
+Need to make another Object : TransactionAct
+It will keep record of all the transactions happening.

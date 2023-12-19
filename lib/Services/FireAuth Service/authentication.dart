@@ -15,6 +15,13 @@ class Authenticate {
     }
   }
 
+  // fetch uid
+  static String getUserUid() {
+    FirebaseAuth auth = FirebaseAuth.instance;
+
+    return auth.currentUser?.uid ?? "Error";
+  }
+
   //fetch username
   static String getUserName() {
     FirebaseAuth auth = FirebaseAuth.instance;

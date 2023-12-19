@@ -1,4 +1,6 @@
 import 'package:bullet24/Objects/user_detail.dart';
+import 'package:bullet24/Services/FireAuth%20Service/authentication.dart';
+import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
 
 class MyProvider extends ChangeNotifier {
@@ -21,6 +23,7 @@ class MyProvider extends ChangeNotifier {
   }
 
   setUserName(String? val) {
+    setUserUid();
     userDetail.name = val;
     notifyListeners();
   }
@@ -40,5 +43,21 @@ class MyProvider extends ChangeNotifier {
   void setLogined(bool val) {
     isLoggined = val;
     notifyListeners();
+  }
+
+  void setUserUid() {
+    userDetail.uid = Authenticate.getUserUid();
+  }
+
+  void setNotification(BuildContext context) async {
+    userDetail.notification = await FireStore.fetchNotifications(context);
+  }
+
+  List<String>? getNotifications() {
+    return userDetail.notification;
+  }
+
+  String? getNotificationNumber() {
+    return userDetail.notification?.length.toString();
   }
 }
