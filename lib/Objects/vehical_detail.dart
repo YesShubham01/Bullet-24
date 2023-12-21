@@ -17,6 +17,7 @@ enum BulletModel {
 class VehicalDetail {
   VehicalDetail({
     required this.ownerName,
+    this.vehicalId,
     this.number,
     this.company,
     this.estPrice,
@@ -34,7 +35,7 @@ class VehicalDetail {
     this.rcPhoto,
     this.insurancePhoto,
   });
-
+  String? vehicalId;
   String ownerName;
   String? number;
   Company? company;

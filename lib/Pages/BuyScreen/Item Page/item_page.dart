@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bullet24/Objects/vehical_detail.dart';
+import 'package:bullet24/Pages/BuyScreen/Bid%20Page/bid_page.dart';
 import 'package:bullet24/Pages/Payment/payment_page.dart';
 import 'package:bullet24/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
@@ -248,7 +249,17 @@ class _ItemPageState extends State<ItemPage> {
                                     ontap: () {
                                       // Implement the action for Bid button
                                       // For now, you can add your logic or leave it empty
-                                      Navigator.of(context).pop();
+                                      Navigator.of(context)
+                                          .pushReplacement(MaterialPageRoute(
+                                        builder: (context) => BidPage(
+                                          vehicleId:
+                                              widget.vehicalDetail.vehicalId ??
+                                                  "error",
+                                          amount:
+                                              widget.vehicalDetail.estPrice ??
+                                                  "error",
+                                        ),
+                                      ));
                                     },
                                     text: "Bid",
                                   ),

@@ -83,24 +83,25 @@ class FireStore {
 
         if (data != null) {
           return VehicalDetail(
-            ownerName:
-                data['ownerName'] ?? "", // Replace with actual field name
-            number: data['number'] ?? "",
-            company:
-                Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
-            model:
-                BulletModel.values[data['model'] ?? 0] ?? BulletModel.bullet350,
-            estPrice: data['estPrice'] ?? "",
-            yearOfRelese: data['yearOfRelese'] ?? 0,
-            yearOfPurchase: data['yearOfPurchase'] ?? 0,
-            meterReading: data['meterReading'] ?? 0,
-            frontPhoto: data['frontPhoto'] ?? "",
-            sidePhoto: data['sidePhoto'] ?? "",
-            rearPhoto: data['rearPhoto'] ?? "",
-            tankPhoto: data['tankPhoto'] ?? "",
-            rcNumber: data['rcNumber'] ?? "",
-            insuranceNumber: data['insuranceNumber'] ?? "",
-          );
+              ownerName:
+                  data['ownerName'] ?? "", // Replace with actual field name
+              number: data['number'] ?? "",
+              company:
+                  Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
+              model: BulletModel.values[data['model'] ?? 0] ??
+                  BulletModel.bullet350,
+              estPrice: data['estPrice'] ?? "",
+              yearOfRelese: data['yearOfRelese'] ?? 0,
+              yearOfPurchase: data['yearOfPurchase'] ?? 0,
+              meterReading: data['meterReading'] ?? 0,
+              frontPhoto: data['frontPhoto'] ?? "",
+              sidePhoto: data['sidePhoto'] ?? "",
+              rearPhoto: data['rearPhoto'] ?? "",
+              tankPhoto: data['tankPhoto'] ?? "",
+              rcNumber: data['rcNumber'] ?? "",
+              insuranceNumber: data['insuranceNumber'] ?? "",
+              vehicalId: document.id // i want document id here.
+              );
         } else {
           print('Data in Firestore document is null.');
           return VehicalDetail(ownerName: "error");
@@ -256,6 +257,74 @@ class FireStore {
       }
     } catch (e) {
       print('Error adding user document: $e');
+    }
+  }
+
+  static Future<String> checkAndUpdateBid(
+      String vehicleId, String amount) async {
+    try {
+      // Reference to the "Active Vehicles" collection
+      CollectionReference vehiclesCollection =
+          FirebaseFirestore.instance.collection('Active Vehicals');
+
+      // Document reference using the provided vehicle ID
+      DocumentReference vehicleDocument = vehiclesCollection.doc(vehicleId);
+
+      DocumentSnapshot vehicleSnapshot = await vehicleDocument.get();
+
+      if (vehicleSnapshot.exists) {
+        // Explicitly cast data to Map<String, dynamic>
+        Map<String, dynamic>? vehicleData =
+            vehicleSnapshot.data() as Map<String, dynamic>?;
+
+        // Check if the 'bid' field exists in the vehicle data
+        if (vehicleData?.containsKey('bid') == false) {
+          // 'bid' field does not exist, create it with a value of null
+          await vehicleDocument.update({'bid': amount});
+          print('Bid field created with a value of null.');
+          return amount;
+        } else {
+          // 'bid' field exists, fetch its value
+          String bidValue = vehicleData?['bid'];
+          print('Bid value: $bidValue');
+
+          return bidValue;
+        }
+      } else {
+        print('Vehicle document does not exist for ID: $vehicleId');
+        return "null";
+      }
+    } catch (e) {
+      print('Error checking/updating bid: $e');
+      // Handle the error as needed
+      return "null";
+    }
+  }
+
+  static Future<String> updateBid(String vehicleId, String newBid) async {
+    try {
+      // Reference to the "Active Vehicals" collection
+      CollectionReference vehiclesCollection =
+          FirebaseFirestore.instance.collection('Active Vehicals');
+
+      // Document reference using the provided vehicle ID
+      DocumentReference vehicleDocument = vehiclesCollection.doc(vehicleId);
+
+      DocumentSnapshot vehicleSnapshot = await vehicleDocument.get();
+
+      if (vehicleSnapshot.exists) {
+        // Update the 'bid' field with the new bid value
+        await vehicleDocument.update({'bid': newBid});
+        print('Bid updated successfully.');
+        return newBid;
+      } else {
+        print('Vehicle document does not exist for ID: $vehicleId');
+        return "null";
+      }
+    } catch (e) {
+      print('Error updating bid: $e');
+      // Handle the error as needed
+      return "null";
     }
   }
 }
