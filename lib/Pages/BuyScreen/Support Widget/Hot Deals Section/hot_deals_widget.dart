@@ -29,8 +29,12 @@ class _HotDealsSectionState extends State<HotDealsSection> {
           itemCount: model.length,
           scrollDirection: Axis.horizontal,
           itemBuilder: (context, index) {
-            return HotDealSectionCard(
-              model: model[index],
+            return Hero(
+              tag: "banner",
+              child: HotDealSectionCard(
+                model: model[index],
+                enableTab: true,
+              ),
             );
           }),
     );

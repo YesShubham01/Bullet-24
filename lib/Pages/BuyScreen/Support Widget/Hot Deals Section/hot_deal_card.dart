@@ -1,9 +1,11 @@
+import 'package:bullet24/Pages/BuyScreen/Filter%20Page/filter_page.dart';
 import 'package:bullet24/Res/Theme/theme.dart';
 import 'package:flutter/material.dart';
 
 class HotDealSectionCard extends StatelessWidget {
   final String model;
-  HotDealSectionCard({super.key, required this.model});
+  final bool enableTab;
+  HotDealSectionCard({super.key, required this.model, required this.enableTab});
 
   final Map<String, String> modelImageMap = {
     'bullet350': "images/Model Images/bullet-350-motorcycle-listing.jpg",
@@ -23,28 +25,41 @@ class HotDealSectionCard extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.all(10.0),
       child: Center(
-        child: Container(
-          height: 130,
-          width: 230,
-          decoration: ShapeDecoration(
-            color: BS_FSG_button_false_color,
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(20),
+        child: InkWell(
+          onTap: () {
+            if (enableTab) {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => FilterPage(
+                      model: model,
+                    ),
+                  ));
+            }
+          },
+          child: Container(
+            height: 130,
+            width: 230,
+            decoration: ShapeDecoration(
+              color: BS_FSG_button_false_color,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+              shadows: [
+                BoxShadow(
+                  color: shadow_false,
+                  blurRadius: 4,
+                  offset: const Offset(-2, 6),
+                  spreadRadius: 0,
+                )
+              ],
             ),
-            shadows: [
-              BoxShadow(
-                color: shadow_false,
-                blurRadius: 4,
-                offset: const Offset(-2, 6),
-                spreadRadius: 0,
-              )
-            ],
-          ),
-          child: ClipRRect(
-            borderRadius: BorderRadius.circular(20),
-            child: Image.asset(
-              _getFromVehicalModel(model),
-              fit: BoxFit.cover, // Set BoxFit property
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Image.asset(
+                _getFromVehicalModel(model),
+                fit: BoxFit.cover, // Set BoxFit property
+              ),
             ),
           ),
         ),
