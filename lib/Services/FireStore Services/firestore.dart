@@ -133,11 +133,12 @@ class FireStore {
 
 // function to upload Vehical Details.
   static Future<void> uploadVehicalDetail(VehicalDetail vehicalDetail) async {
+    String? userId = await getUserId();
+    String documentId = await getDocumentIdForVehicalUpload(userId!, 0);
     try {
-      String? userId = await getUserId();
       await FirebaseFirestore.instance
           .collection('Active Vehicals')
-          .doc("$userId")
+          .doc(documentId)
           .set({
         'ownerName': vehicalDetail.ownerName,
         'number': vehicalDetail.number,
@@ -154,8 +155,47 @@ class FireStore {
         'rcNumber': vehicalDetail.rcNumber,
         'insuranceNumber': vehicalDetail.insuranceNumber,
       });
+      await addVehicleToUser(userId, documentId);
     } catch (e) {
       print('Error uploading Vehical details: $e');
+      // Handle the error as needed
+    }
+  }
+
+  static Future<String> getDocumentIdForVehicalUpload(
+      String documentId, int index) async {
+    index++;
+    bool doExist = await checkDocumentExists(documentId);
+    if (doExist) {
+      documentId = "${documentId}_$index";
+      return getDocumentIdForVehicalUpload(documentId, index);
+    } else {
+      return documentId;
+    }
+  }
+
+  static Future<bool> checkDocumentExists(String documentId) async {
+    try {
+      final DocumentSnapshot documentSnapshot = await FirebaseFirestore.instance
+          .collection("Active Vehicals")
+          .doc(documentId)
+          .get();
+
+      return documentSnapshot.exists;
+    } catch (e) {
+      // Handle errors, e.g., network issues, etc.
+      print('Error checking document existence: $e');
+      return false;
+    }
+  }
+
+  static Future<void> addVehicleToUser(String userId, String vehicle) async {
+    try {
+      await FirebaseFirestore.instance.collection('Users').doc(userId).update({
+        'vehicles': FieldValue.arrayUnion([vehicle]),
+      });
+    } catch (e) {
+      print('Error adding vehicle to user: $e');
       // Handle the error as needed
     }
   }
