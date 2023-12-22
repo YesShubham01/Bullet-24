@@ -101,6 +101,9 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
   }
 
   proceed() {
+    if (progress == 7) {
+      _setButtonTxt();
+    }
     if (progress < 8) {
       bool allow = context.read<QueryPageProvider>().allowNext;
       if (allow) {
@@ -118,9 +121,8 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
           builder: (context) => const PhoneAuthPage(),
         ));
       } else {
-        _uploadVehicalDetail();
+        _uploadVehicalDetail(context);
       }
-      _setButtonTxt();
     }
   }
 
@@ -130,10 +132,44 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
     });
   }
 
-  void _uploadVehicalDetail() async {
+  void _uploadVehicalDetail(BuildContext context) {
     VehicalDetail vehicalDetail = context.read<QueryPageProvider>().myVehical!;
     print("Uploading...");
-    await FireStore.uploadVehicalDetail(vehicalDetail);
-    print("Uploaded Successfully");
+    FireStore.uploadVehicalDetail(vehicalDetail);
+    _showAboutDialog(context);
+  }
+
+  void _showAboutDialog(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Congratulations!'),
+          content: const SingleChildScrollView(
+            child: ListBody(
+              children: <Widget>[
+                Text(
+                  "Your Vehical has been Listed.",
+                  style: TextStyle(
+                    fontSize: 18,
+                  ),
+                ),
+
+                // Add more information as needed
+              ],
+            ),
+          ),
+          actions: <Widget>[
+            TextButton(
+              child: const Text('Woo hoo!'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }
