@@ -4,6 +4,7 @@ import 'package:bullet24/Pages/BuyScreen/Bid%20Page/bid_page.dart';
 import 'package:bullet24/Pages/Payment/payment_page.dart';
 import 'package:bullet24/Widgets/custom_elevated_button.dart';
 import 'package:flutter/material.dart';
+import 'package:dots_indicator/dots_indicator.dart';
 
 class ItemPage extends StatefulWidget {
   final VehicalDetail vehicalDetail;
@@ -19,12 +20,13 @@ class _ItemPageState extends State<ItemPage> {
   late Timer _timer;
   int _currentPage = 0;
 
+  // List to store the Image Widgets
+  late List<Widget> _imagePages;
+
   @override
   void initState() {
     super.initState();
     _pageController = PageController(initialPage: 0);
-
-    // Set up a timer to automatically scroll every 2 seconds
     _timer = Timer.periodic(const Duration(seconds: 2), (Timer timer) {
       if (_currentPage < 2) {
         _currentPage++;
@@ -34,7 +36,39 @@ class _ItemPageState extends State<ItemPage> {
       _pageController.animateToPage(_currentPage,
           duration: const Duration(milliseconds: 500), curve: Curves.easeInOut);
     });
+
+    // Initialize the list of Image Widgets
+    _imagePages = [
+      _buildImagePage(widget.vehicalDetail.sidePhoto),
+      _buildImagePage(widget.vehicalDetail.rearPhoto),
+      _buildImagePage(widget.vehicalDetail.frontPhoto),
+    ];
   }
+
+  // Function to build an Image Widget
+  Widget _buildImagePage(String? imageUrl) {
+    String defaultPhotoUrl =
+        "https://firebasestorage.googleapis.com/v0/b/bullet-24.appspot.com/o/images%2F2023-11-28%2023%3A42%3A40.316287.png?alt=media&token=f5e769bc-d076-4548-a08c-b97b106d19ea";
+    return Image.network(
+      imageUrl ?? defaultPhotoUrl,
+      key: Key(imageUrl ?? defaultPhotoUrl),
+      fit: BoxFit.cover,
+    );
+  }
+
+  // Define the modelMap
+  final Map<String, String> modelMap = {
+    'BulletModel.bullet350': 'Bullet 350',
+    'BulletModel.classic350': 'Classic 350',
+    'BulletModel.hunter350': 'Hunter 350',
+    'BulletModel.scram411': 'Scram 411',
+    'BulletModel.meteor350': 'Meteor 350',
+    'BulletModel.superMeteor650': 'Super Meteor 650',
+    'BulletModel.himalayan': 'Himalayan',
+    'BulletModel.newHimalayan': 'New Himalayan',
+    'BulletModel.interceptor': 'Interceptor',
+    'BulletModel.continentalGT': 'Continental GT',
+  };
 
   void _onPageChanged(int page) {
     setState(() {
@@ -49,19 +83,6 @@ class _ItemPageState extends State<ItemPage> {
     super.dispose();
   }
 
-  final Map<String, String> modelMap = {
-    'BulletModel.bullet350': 'Bullet 350',
-    'BulletModel.classic350': 'Classic 350',
-    'BulletModel.hunter350': 'Hunter 350',
-    'BulletModel.scram411': 'Scram 411',
-    'BulletModel.meteor350': 'Meteor 350',
-    'BulletModel.superMeteor650': 'Super Meteor 650',
-    'BulletModel.himalayan': 'Himalayan',
-    'BulletModel.newHimalayan': 'New Himalayan',
-    'BulletModel.interceptor': 'Interceptor',
-    'BulletModel.continentalGT': 'Continental GT',
-  };
-
   String modelToName(String model) {
     return modelMap[model] ?? "Error";
   }
@@ -70,16 +91,15 @@ class _ItemPageState extends State<ItemPage> {
   Widget build(BuildContext context) {
     String defaultPhotoUrl =
         "https://firebasestorage.googleapis.com/v0/b/bullet-24.appspot.com/o/images%2F2023-11-28%2023%3A42%3A40.316287.png?alt=media&token=f5e769bc-d076-4548-a08c-b97b106d19ea";
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          modelToName(
-            widget.vehicalDetail.model.toString(),
-          ),
-        ), // Use model name in title
+          modelToName(widget.vehicalDetail.model.toString()),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.pop(context), // Implement back button
+          onPressed: () => Navigator.pop(context),
         ),
         actions: <Widget>[
           IconButton(
@@ -93,71 +113,76 @@ class _ItemPageState extends State<ItemPage> {
         ],
       ),
       body: SingleChildScrollView(
-        // Use SingleChildScrollView for better scrolling
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // Image of the Vehicle
               Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                child: // Horizontal scrollable photos
+                child: Stack(
+                  children: [
                     GestureDetector(
-                  onHorizontalDragEnd: (details) {
-                    if (details.primaryVelocity! > 0) {
-                      // Swipe right
-                      if (_currentPage > 0) {
-                        _pageController.previousPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    } else if (details.primaryVelocity! < 0) {
-                      // Swipe left
-                      if (_currentPage < 2) {
-                        _pageController.nextPage(
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      }
-                    }
-                  },
-                  child: SizedBox(
-                    height: 200,
-                    child: PageView(
-                      controller: _pageController,
-                      onPageChanged: _onPageChanged,
+                      onHorizontalDragEnd: (details) {
+                        if (details.primaryVelocity! > 0) {
+                          if (_currentPage > 0) {
+                            _pageController.previousPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          }
+                        } else if (details.primaryVelocity! < 0) {
+                          if (_currentPage < 2) {
+                            _pageController.nextPage(
+                              duration: const Duration(milliseconds: 300),
+                              curve: Curves.easeInOut,
+                            );
+                          }
+                        }
+                      },
+                      child: SizedBox(
+                        height: 200,
+                        child: PageView(
+                          controller: _pageController,
+                          onPageChanged: _onPageChanged,
+                          children:
+                              _imagePages, // Use the list of Image Widgets
+                        ),
+                      ),
+                    ),
+                    Column(
                       children: [
-                        Image.network(
-                          widget.vehicalDetail.sidePhoto ?? defaultPhotoUrl,
-                          key: Key(widget.vehicalDetail.sidePhoto ??
-                              defaultPhotoUrl),
-                          fit: BoxFit.cover,
+                        const SizedBox(
+                          height: 200,
                         ),
-                        Image.network(
-                          widget.vehicalDetail.rearPhoto ?? defaultPhotoUrl,
-                          key: Key(widget.vehicalDetail.rearPhoto ??
-                              defaultPhotoUrl),
-                          fit: BoxFit.cover,
-                        ),
-                        Image.network(
-                          widget.vehicalDetail.frontPhoto ?? defaultPhotoUrl,
-                          key: Key(widget.vehicalDetail.frontPhoto ??
-                              defaultPhotoUrl),
-                          fit: BoxFit.cover,
+                        Align(
+                          alignment: Alignment.center,
+                          child: DotsIndicator(
+                            dotsCount: _imagePages.length,
+                            position: _currentPage.toInt(),
+                            decorator: DotsDecorator(
+                              color: Colors.grey, // Inactive color
+                              activeColor: Colors.blue, // Active color
+                              size: const Size.square(9.0),
+                              activeSize: const Size(18.0, 9.0),
+                              activeShape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(5.0),
+                              ),
+                            ),
+                          ),
                         ),
                       ],
                     ),
-                  ),
+                  ],
                 ),
               ),
 
+              const SizedBox(height: 16.0),
+
               // Vehicle details
-              const SizedBox(height: 16.0), // Add space between sections
               Card(
                 elevation: 5.0,
                 shape: RoundedRectangleBorder(
@@ -188,6 +213,22 @@ class _ItemPageState extends State<ItemPage> {
                         style: const TextStyle(fontSize: 14.0),
                       ),
                       const SizedBox(height: 8.0),
+
+                      // Additional Vehicle Details
+                      Text(
+                        'Owner: ${widget.vehicalDetail.ownerName}',
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Registration Number: ${widget.vehicalDetail.rcNumber}',
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
+                      const SizedBox(height: 8.0),
+                      Text(
+                        'Insurance Number: ${widget.vehicalDetail.insuranceNumber}',
+                        style: const TextStyle(fontSize: 14.0),
+                      ),
                     ],
                   ),
                 ),
@@ -220,7 +261,7 @@ class _ItemPageState extends State<ItemPage> {
                 ),
                 child: const Padding(
                   padding: EdgeInsets.all(16.0),
-                  child: Text('EMI/Loan: To be added'), // Placeholder text
+                  child: Text('EMI/Loan: To be added'),
                 ),
               ),
 
@@ -230,12 +271,6 @@ class _ItemPageState extends State<ItemPage> {
                 padding: const EdgeInsets.all(16.0),
                 child: CustomElevatedButton(
                   ontap: () {
-                    // Implement the action for the "Buy Now" button
-                    // Navigator.of(context).pushReplacement(MaterialPageRoute(
-                    //     builder: (context) => PaymentPage(
-                    //         amount: convertStringToInt(
-                    //             widget.vehicalDetail.estPrice!))));
-
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -247,38 +282,34 @@ class _ItemPageState extends State<ItemPage> {
                                 Expanded(
                                   child: CustomElevatedButton(
                                     ontap: () {
-                                      // Implement the action for Bid button
-                                      // For now, you can add your logic or leave it empty
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => BidPage(
-                                          vehicleId:
-                                              widget.vehicalDetail.vehicalId ??
-                                                  "error",
-                                          amount:
-                                              widget.vehicalDetail.estPrice ??
-                                                  "error",
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) => BidPage(
+                                            vehicleId: widget
+                                                    .vehicalDetail.vehicalId ??
+                                                "error",
+                                            amount:
+                                                widget.vehicalDetail.estPrice ??
+                                                    "error",
+                                          ),
                                         ),
-                                      ));
+                                      );
                                     },
                                     text: "Bid",
                                   ),
                                 ),
-                                const SizedBox(
-                                    width:
-                                        8.0), // Add some space between buttons
+                                const SizedBox(width: 8.0),
                                 Expanded(
                                   child: CustomElevatedButton(
                                     ontap: () {
-                                      // Implement the action for Click Buy button
-                                      // For now, just navigate to the payment page as an example
-                                      Navigator.of(context)
-                                          .pushReplacement(MaterialPageRoute(
-                                        builder: (context) => PaymentPage(
-                                          amount: convertStringToInt(
-                                              widget.vehicalDetail.estPrice!),
+                                      Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                          builder: (context) => PaymentPage(
+                                            amount: convertStringToInt(
+                                                widget.vehicalDetail.estPrice!),
+                                          ),
                                         ),
-                                      ));
+                                      );
                                     },
                                     text: "Buy",
                                   ),
@@ -301,16 +332,12 @@ class _ItemPageState extends State<ItemPage> {
   }
 
   int convertStringToInt(String input) {
-    // Remove commas from the string
     String sanitizedInput = input.replaceAll(',', '');
-
-    // Parse the sanitized string to an integer
     try {
       return int.parse(sanitizedInput);
     } catch (e) {
-      // Handle parsing errors if needed
       print('Error converting string to int: $e');
-      return 0; // Default value or handle the error accordingly
+      return 0;
     }
   }
 }
