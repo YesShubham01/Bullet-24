@@ -31,13 +31,12 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: ((context) => MyProvider())),
       ],
       child: MaterialApp(
-        title: 'Flutter Demo',
+        title: 'Bullet24',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSeed(seedColor: Colors.blue),
           useMaterial3: true,
         ),
         home: const SplashPage(),
-        // home: const SplashPage(),
       ),
     );
   }
