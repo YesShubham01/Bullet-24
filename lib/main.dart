@@ -1,4 +1,5 @@
 import 'package:bullet24/Provider/my_provider.dart';
+import 'package:bullet24/Provider/offline_data.dart';
 import 'package:bullet24/Provider/query_page_provider.dart';
 import 'package:bullet24/firebase_options.dart';
 import 'package:flutter/material.dart';
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create: ((context) => QueryPageProvider())),
         ChangeNotifierProvider(create: ((context) => MyProvider())),
+        ChangeNotifierProvider(create: ((context) => AppData())),
       ],
       child: MaterialApp(
         title: 'Bullet24',
