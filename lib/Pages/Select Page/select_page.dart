@@ -63,6 +63,39 @@ class _SelectPageState extends State<SelectPage> {
           children: [
             const TopLeftLogo(),
             const TitleBlueTint(text: "What would you like to do?\n"),
+            Container(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    child: Image.asset(
+                      'images/Hero-Logo 1.png',
+                      height: 40,
+                    ),
+                  ),
+                  Expanded(
+                    child: Image.asset(
+                      'images/Bajaj-Logo 1.png',
+                      height: 40,
+                    ),
+                  ),
+                  Expanded(
+                    child: Image.asset(
+                      'images/honda-logo-png-44814 1.png',
+                      height: 40,
+                    ),
+                  ),
+                  Expanded(
+                    child: Image.asset(
+                      'images/tvs-logo-bbd6 1.png',
+                      height: 40,
+                    ),
+                  ),
+                ],
+              ),
+            ),
             OptionBuy(active: _buyStatus, onTap: () => _onOptionTap(true)),
             OptionSell(active: _sellStatus, onTap: () => _onOptionTap(false)),
             AnimatedContinueButton(
