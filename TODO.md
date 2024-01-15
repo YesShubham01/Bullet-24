@@ -10,12 +10,12 @@ Project Description
 - [ ] ItemPage: Engine Sounf and Photos.  
 - [ ] Buy Home Page: Add Live Auction Section  
 - [ ] ChatPage backend  
-- [ ] Bidding System  
 
 ### In Progress
 
-- [ ] Upload Vehical:  ProgressBar touch responsive.  
+- [ ] Upload Vehical:  ProgressBar back button.  
 - [ ] quick access button to switch between sell and buy (like cars24)  
+- [ ] Bidding System  
 
 ### Done ✓
 
