@@ -1,3 +1,5 @@
+//import 'dart:html';
+
 import 'package:bullet24/Objects/user_detail.dart';
 import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query1.dart';
@@ -28,45 +30,82 @@ class UploadVehicalToSellPage extends StatefulWidget {
 }
 
 class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
-  int progress = 1;
+  int progress = 2;
   String buttonText = "Next";
+  String backbuttonText = "Back";
   bool resultPage = false; // Variable to control FAB visibility
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text("Upload Vehical Details"),
-        // Subtitle: "Please provide the following details about your vehicle:"
-      ),
-      floatingActionButton:
-          CustomElevatedButton(ontap: proceed, text: buttonText),
-      body: Padding(
-        padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8),
-        child: Column(
-          children: [
-            ProgressBar10Dots(progress: progress),
-            const Padding(
-              padding: EdgeInsets.only(top: 8.0),
-              child: Text(
-                "Please provide details of your vehicle.",
-                style: TextStyle(
-                  fontSize: 18.0,
-                  fontWeight: FontWeight.bold,
+    return Stack(
+
+      children: [
+         
+        
+
+       
+        Scaffold(
+           
+          appBar: AppBar(
+            centerTitle: true,
+            title: const Text("Upload Vehical Details"),
+            // Subtitle: "Please provide the following details about your vehicle:"
+          ),
+          //floatingActionButton:
+              
+          body: Padding(
+            padding: const EdgeInsets.only(left: 16.0, right: 16.0, top: 8),
+            child: Column(
+              children: [
+                ProgressBar10Dots(progress: progress),
+                const Padding(
+                  padding: EdgeInsets.only(top: 8.0),
+                  child: Text(
+                    "Please provide details of your vehicle.",
+                    style: TextStyle(
+                      fontSize: 18.0,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    textAlign: TextAlign.left,
+                  ),
                 ),
-                textAlign: TextAlign.left,
-              ),
+                const Divider(
+                  thickness: 4,
+                ),
+                Expanded(
+                  child: getQueries(),
+                ),
+              ],
             ),
-            const Divider(
-              thickness: 4,
-            ),
-            Expanded(
-              child: getQueries(),
-            ),
-          ],
+          ),
         ),
-      ),
+        
+
+         Padding(
+           padding: const EdgeInsets.all(30.0),
+           child: Column(
+            children:[
+              
+             
+              
+              Spacer(),
+              Row(
+                
+                
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  
+              back(),
+                
+              
+              CustomElevatedButton(ontap: proceed, text: buttonText),
+              ],)
+              
+           
+            ]
+                   ),
+         ),
+      ],
     );
   }
 
@@ -126,11 +165,92 @@ class _UploadVehicalToSellPageState extends State<UploadVehicalToSellPage> {
     }
   }
 
+  Widget back() {
+  return Visibility(
+    visible: progress > 1,
+    child: OutlinedButton(
+      onPressed: () => _goBack(),
+      style: ButtonStyle(
+        fixedSize: MaterialStateProperty.all(Size(140, 52)),
+        side: MaterialStateProperty.all<BorderSide>(
+          BorderSide(color: Colors.grey, width: 2.0,),
+        ),
+      ),
+      child: Text(
+        backbuttonText,
+        style: TextStyle(color: Colors.grey[400], fontSize: 15),
+      ),
+    ),
+  );
+}
+
+void _goBack() {
+  if (progress > 1) {
+    setState(() {
+      progress--; // Go back
+    });
+  }
+}
+
+
+  
+
+
+   /* back(){
+    if (progress > 1) {
+    
+       return OutlinedButton(
+        onPressed: _goBack,
+        
+        
+        style: 
+        
+        ButtonStyle(
+          fixedSize: MaterialStatePropertyAll(Size(140, 52)),
+          
+          side: MaterialStateProperty.all<BorderSide>(
+            BorderSide(color: Colors.grey, width: 2.0,),
+          ),
+        ),
+        child:Text(
+          backbuttonText,
+          style: TextStyle(color: Colors.grey[400],fontSize: 15),
+        ),
+      );
+
+    
+       }
+       else{
+           Container();
+
+       }
+
+  }*/
+
   void _setButtonTxt() {
     setState(() {
       buttonText = "Submit";
     });
   }
+ 
+
+
+
+
+
+
+
+  
+       
+        
+       
+       
+  
+     
+  
+
+
+
 
   void _uploadVehicalDetail(BuildContext context) {
     VehicalDetail vehicalDetail = context.read<QueryPageProvider>().myVehical!;
