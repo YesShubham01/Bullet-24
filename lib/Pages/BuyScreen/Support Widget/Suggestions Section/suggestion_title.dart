@@ -1,17 +1,18 @@
 import 'package:flutter/material.dart';
 
-class SuggestionSectionTitle extends StatelessWidget {
-  const SuggestionSectionTitle({super.key});
+class HomPageSectionTitle extends StatelessWidget {
+  final String title;
+  const HomPageSectionTitle({super.key, required this.title});
 
   @override
   Widget build(BuildContext context) {
-    return const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 15),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Row(
         children: [
           Text(
-            "Suggestions",
-            style: TextStyle(
+            title,
+            style: const TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.w600,
             ),

@@ -34,6 +34,7 @@ class VehicalDetail {
     this.meterPhoto,
     this.rcPhoto,
     this.insurancePhoto,
+    this.bid,
   });
   String? vehicalId;
   String ownerName;
@@ -41,6 +42,7 @@ class VehicalDetail {
   Company? company;
   BulletModel? model;
   String? estPrice;
+  int? bid;
   int? yearOfRelese;
   int? yearOfPurchase;
   int? meterReading;

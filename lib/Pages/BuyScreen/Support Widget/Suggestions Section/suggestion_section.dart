@@ -13,7 +13,7 @@ class SuggestionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SuggestionSectionTitle(),
+        const HomPageSectionTitle(title: "Suggestions"),
         // Use FutureBuilder to handle asynchronous data fetching
         FutureBuilder<List<VehicalDetail>>(
           future: FireStore.fetchAllVehicalDetails(),
