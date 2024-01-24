@@ -396,7 +396,8 @@ class FireStore {
     }
   }
 
-  static Future<String> updateBid(String vehicleId, String newBid) async {
+  static Future<String> updateBid(
+      String vehicleId, String newBid, String username) async {
     try {
       // Reference to the "Active Vehicals" collection
       CollectionReference vehiclesCollection =
@@ -409,7 +410,11 @@ class FireStore {
 
       if (vehicleSnapshot.exists) {
         // Update the 'bid' field with the new bid value
-        await vehicleDocument.update({'bid': newBid});
+        // and add a bidder key with the bidderName
+        await vehicleDocument.update({
+          'bid': newBid,
+          'bidder': username,
+        });
         print('Bid updated successfully.');
         return newBid;
       } else {

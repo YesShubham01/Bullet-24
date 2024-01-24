@@ -274,7 +274,7 @@ class _ItemPageState extends State<ItemPage> {
                     Expanded(
                       child: CustomElevatedButton(
                         ontap: () {
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => BidPage(
                                 vehicleId:
@@ -292,7 +292,7 @@ class _ItemPageState extends State<ItemPage> {
                     Expanded(
                       child: CustomElevatedButton(
                         ontap: () {
-                          Navigator.of(context).pushReplacement(
+                          Navigator.of(context).push(
                             MaterialPageRoute(
                               builder: (context) => PaymentPage(
                                 amount: convertStringToInt(

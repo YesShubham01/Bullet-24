@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:http/http.dart' as http;
+import 'package:lottie/lottie.dart';
 
 class PaymentPage extends StatefulWidget {
   final int amount;
@@ -51,6 +52,7 @@ class _PaymentPageState extends State<PaymentPage> {
     try {
       await Stripe.instance.presentPaymentSheet();
       print("sheet display done");
+      setState(() {});
     } catch (e) {
       print("mew2 error:$e");
     }
@@ -93,11 +95,27 @@ class _PaymentPageState extends State<PaymentPage> {
 
   @override
   Widget build(BuildContext context) {
+    bool status = (paymentIntent == null);
+    if (status == false) {
+      Future.delayed(
+        const Duration(seconds: 2),
+        () {
+          const snackBar = SnackBar(
+            content: Text('Payment successful! Track in your Profile Page.'),
+            duration: Duration(seconds: 3),
+          );
+          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+          Navigator.pop(context);
+        },
+      );
+    }
     return Scaffold(
       appBar: AppBar(),
-      body: const Center(
-        child: CircularProgressIndicator(),
-      ),
+      body: status
+          ? Center(
+              child: Lottie.asset('images/Lottie/waiting_sand_animation.json'),
+            )
+          : Center(child: Lottie.asset('images/Lottie/done_animation.json')),
     );
   }
 }

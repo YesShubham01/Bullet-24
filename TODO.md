@@ -6,9 +6,9 @@ Project Description
 
 ### Todo
 
+- [ ] Enable Profile Activities  
 - [ ] EMI wIth Stripe.  
 - [ ] ItemPage: Engine Sounf and Photos.  
-- [ ] Buy Home Page: Add Live Auction Section  
 - [ ] ChatPage backend  
 
 ### In Progress
@@ -27,4 +27,5 @@ Project Description
 - [x] firestore file name is userid : one user one bike. Fix that by modifying file name saving.  
 - [x] implement search and filters.  
 - [x] Select page: Add company logos.  
+- [x] Buy Home Page: Add Live Auction Section  
 
