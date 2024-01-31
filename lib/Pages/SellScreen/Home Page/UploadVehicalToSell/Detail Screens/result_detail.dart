@@ -56,6 +56,9 @@ class DetailsResultScreen extends StatelessWidget {
           _buildInfoCard(
               title: 'Insurance Details',
               content: (vehicalDetail.insuranceNumber ?? '').toString()),
+          _buildInfoCard(
+              title: 'Status',
+              content: (vehicalDetail.status ?? '').toString()),
           const SizedBox(height: 16.0),
         ],
       ),

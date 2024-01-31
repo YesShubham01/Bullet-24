@@ -105,7 +105,7 @@ class _PaymentPageState extends State<PaymentPage> {
             duration: Duration(seconds: 3),
           );
           ScaffoldMessenger.of(context).showSnackBar(snackBar);
-          Navigator.pop(context);
+          Navigator.of(context).popUntil((route) => route.isFirst);
         },
       );
     }

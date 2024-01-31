@@ -128,8 +128,10 @@ class FireStore {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
       // Get all documents from the "Active Vehicals" collection
-      QuerySnapshot querySnapshot =
-          await firestore.collection('Active Vehicals').get();
+      QuerySnapshot querySnapshot = await firestore
+          .collection('Active Vehicals')
+          .where('status', isEqualTo: 'live')
+          .get();
 
       // Process the documents in the snapshot
       List<VehicalDetail> vehicalDetailsList =
@@ -138,25 +140,26 @@ class FireStore {
 
         if (data != null) {
           return VehicalDetail(
-              ownerName:
-                  data['ownerName'] ?? "", // Replace with actual field name
-              number: data['number'] ?? "",
-              company:
-                  Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
-              model: BulletModel.values[data['model'] ?? 0] ??
-                  BulletModel.bullet350,
-              estPrice: data['estPrice'] ?? "",
-              yearOfRelese: data['yearOfRelese'] ?? 0,
-              yearOfPurchase: data['yearOfPurchase'] ?? 0,
-              meterReading: data['meterReading'] ?? 0,
-              frontPhoto: data['frontPhoto'] ?? "",
-              sidePhoto: data['sidePhoto'] ?? "",
-              rearPhoto: data['rearPhoto'] ?? "",
-              tankPhoto: data['tankPhoto'] ?? "",
-              rcNumber: data['rcNumber'] ?? "",
-              insuranceNumber: data['insuranceNumber'] ?? "",
-              vehicalId: document.id // i want document id here.
-              );
+            ownerName:
+                data['ownerName'] ?? "", // Replace with actual field name
+            number: data['number'] ?? "",
+            company:
+                Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
+            model:
+                BulletModel.values[data['model'] ?? 0] ?? BulletModel.bullet350,
+            estPrice: data['estPrice'] ?? "",
+            yearOfRelese: data['yearOfRelese'] ?? 0,
+            yearOfPurchase: data['yearOfPurchase'] ?? 0,
+            meterReading: data['meterReading'] ?? 0,
+            frontPhoto: data['frontPhoto'] ?? "",
+            sidePhoto: data['sidePhoto'] ?? "",
+            rearPhoto: data['rearPhoto'] ?? "",
+            tankPhoto: data['tankPhoto'] ?? "",
+            rcNumber: data['rcNumber'] ?? "",
+            insuranceNumber: data['insuranceNumber'] ?? "",
+            vehicalId: document.id, // i want document id here.
+            status: data['status'] ?? "",
+          );
         } else {
           print('Data in Firestore document is null.');
           return VehicalDetail(ownerName: "error");
@@ -197,6 +200,7 @@ class FireStore {
           .set({
         'ownerName': vehicalDetail.ownerName,
         'number': vehicalDetail.number,
+        'status': vehicalDetail.status,
         'company': vehicalDetail.company?.index ?? 0,
         'model': vehicalDetail.model?.index ?? 0,
         'estPrice': vehicalDetail.estPrice,
@@ -435,8 +439,10 @@ class FireStore {
           FirebaseFirestore.instance.collection('Active Vehicals');
 
       // Query vehicles where 'bid' attribute exists
-      QuerySnapshot querySnapshot =
-          await vehiclesCollection.where('bid', isNotEqualTo: null).get();
+      QuerySnapshot querySnapshot = await vehiclesCollection
+          .where('bid', isNotEqualTo: null)
+          .where('status', isEqualTo: 'live')
+          .get();
 
       // Process the documents in the snapshot
       List<VehicalDetail> vehiclesWithBid = querySnapshot.docs
@@ -465,6 +471,7 @@ class FireStore {
                 insuranceNumber: data['insuranceNumber'] ?? "",
                 bid: bid,
                 vehicalId: document.id,
+                status: data['bid'] ?? '',
               );
             } else {
               print(
