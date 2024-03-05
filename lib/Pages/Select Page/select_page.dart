@@ -63,6 +63,7 @@ class _SelectPageState extends State<SelectPage> {
           children: [
             const TopLeftLogo(),
             const TitleBlueTint(text: "What would you like to do?\n"),
+
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 20.0),
               child: Row(
