@@ -1,5 +1,7 @@
+import 'package:bullet24/Provider/my_provider.dart';
 import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class BidPage extends StatefulWidget {
   final String amount;
@@ -31,6 +33,7 @@ class _BidPageState extends State<BidPage> {
 
   @override
   Widget build(BuildContext context) {
+    String username = context.read<MyProvider>().userDetail.name.toString();
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
@@ -87,25 +90,41 @@ class _BidPageState extends State<BidPage> {
                         ),
                       ),
                       const SizedBox(
-                        height: 60,
+                        height: 160,
+                      ),
+                      const Text(
+                        "Place your bid",
+                        style: TextStyle(
+                          color: Colors.black, // Text color
+                          fontSize: 24.0, // Font size
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 30,
                       ),
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          OutlinedButton(
-                              onPressed: () async {
-                                await FireStore.updateBid(
-                                    widget.vehicleId, bid_amount_1.toString());
-                                setState(() {});
-                              },
-                              child: Text(bid_amount_1.toString())),
-                          OutlinedButton(
-                              onPressed: () async {
-                                await FireStore.updateBid(
-                                    widget.vehicleId, bid_amount_2.toString());
-                                setState(() {});
-                              },
-                              child: Text(bid_amount_2.toString())),
+                          SizedBox(
+                            width: 100,
+                            child: OutlinedButton(
+                                onPressed: () async {
+                                  await FireStore.updateBid(widget.vehicleId,
+                                      bid_amount_1.toString(), username);
+                                  setState(() {});
+                                },
+                                child: Text(bid_amount_1.toString())),
+                          ),
+                          SizedBox(
+                            width: 100,
+                            child: OutlinedButton(
+                                onPressed: () async {
+                                  await FireStore.updateBid(widget.vehicleId,
+                                      bid_amount_2.toString(), username);
+                                  setState(() {});
+                                },
+                                child: Text(bid_amount_2.toString())),
+                          ),
                         ],
                       ),
                     ],
@@ -116,28 +135,28 @@ class _BidPageState extends State<BidPage> {
             const SizedBox(
               height: 30,
             ),
-            TextField(
-              decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Custom Bid',
-                alignLabelWithHint: true,
-                contentPadding: const EdgeInsets.all(10.0),
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(20.0),
-                  borderSide: const BorderSide(
-                    color: Colors.black, // Border color
-                  ),
-                ),
-                hintStyle: const TextStyle(
-                  color: Colors.blue,
-                ),
-                isDense: true, // Reduces the height of the TextField
-              ),
-              style: TextStyle(
-                color: Colors.blue.shade900,
-              ),
-            ),
+            // TextField(
+            //   decoration: InputDecoration(
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     hintText: 'Custom Bid',
+            //     alignLabelWithHint: true,
+            //     contentPadding: const EdgeInsets.all(10.0),
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(20.0),
+            //       borderSide: const BorderSide(
+            //         color: Colors.black, // Border color
+            //       ),
+            //     ),
+            //     hintStyle: const TextStyle(
+            //       color: Colors.blue,
+            //     ),
+            //     isDense: true, // Reduces the height of the TextField
+            //   ),
+            //   style: TextStyle(
+            //     color: Colors.blue.shade900,
+            //   ),
+            // ),
           ],
         ),
       ),

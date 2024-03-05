@@ -128,8 +128,10 @@ class FireStore {
       FirebaseFirestore firestore = FirebaseFirestore.instance;
 
       // Get all documents from the "Active Vehicals" collection
-      QuerySnapshot querySnapshot =
-          await firestore.collection('Active Vehicals').get();
+      QuerySnapshot querySnapshot = await firestore
+          .collection('Active Vehicals')
+          .where('status', isEqualTo: 'live')
+          .get();
 
       // Process the documents in the snapshot
       List<VehicalDetail> vehicalDetailsList =
@@ -138,25 +140,26 @@ class FireStore {
 
         if (data != null) {
           return VehicalDetail(
-              ownerName:
-                  data['ownerName'] ?? "", // Replace with actual field name
-              number: data['number'] ?? "",
-              company:
-                  Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
-              model: BulletModel.values[data['model'] ?? 0] ??
-                  BulletModel.bullet350,
-              estPrice: data['estPrice'] ?? "",
-              yearOfRelese: data['yearOfRelese'] ?? 0,
-              yearOfPurchase: data['yearOfPurchase'] ?? 0,
-              meterReading: data['meterReading'] ?? 0,
-              frontPhoto: data['frontPhoto'] ?? "",
-              sidePhoto: data['sidePhoto'] ?? "",
-              rearPhoto: data['rearPhoto'] ?? "",
-              tankPhoto: data['tankPhoto'] ?? "",
-              rcNumber: data['rcNumber'] ?? "",
-              insuranceNumber: data['insuranceNumber'] ?? "",
-              vehicalId: document.id // i want document id here.
-              );
+            ownerName:
+                data['ownerName'] ?? "", // Replace with actual field name
+            number: data['number'] ?? "",
+            company:
+                Company.values[data['company'] ?? 0] ?? Company.royalEnfield,
+            model:
+                BulletModel.values[data['model'] ?? 0] ?? BulletModel.bullet350,
+            estPrice: data['estPrice'] ?? "",
+            yearOfRelese: data['yearOfRelese'] ?? 0,
+            yearOfPurchase: data['yearOfPurchase'] ?? 0,
+            meterReading: data['meterReading'] ?? 0,
+            frontPhoto: data['frontPhoto'] ?? "",
+            sidePhoto: data['sidePhoto'] ?? "",
+            rearPhoto: data['rearPhoto'] ?? "",
+            tankPhoto: data['tankPhoto'] ?? "",
+            rcNumber: data['rcNumber'] ?? "",
+            insuranceNumber: data['insuranceNumber'] ?? "",
+            vehicalId: document.id, // i want document id here.
+            status: data['status'] ?? "",
+          );
         } else {
           print('Data in Firestore document is null.');
           return VehicalDetail(ownerName: "error");
@@ -197,6 +200,7 @@ class FireStore {
           .set({
         'ownerName': vehicalDetail.ownerName,
         'number': vehicalDetail.number,
+        'status': vehicalDetail.status,
         'company': vehicalDetail.company?.index ?? 0,
         'model': vehicalDetail.model?.index ?? 0,
         'estPrice': vehicalDetail.estPrice,
@@ -396,7 +400,8 @@ class FireStore {
     }
   }
 
-  static Future<String> updateBid(String vehicleId, String newBid) async {
+  static Future<String> updateBid(
+      String vehicleId, String newBid, String username) async {
     try {
       // Reference to the "Active Vehicals" collection
       CollectionReference vehiclesCollection =
@@ -409,7 +414,11 @@ class FireStore {
 
       if (vehicleSnapshot.exists) {
         // Update the 'bid' field with the new bid value
-        await vehicleDocument.update({'bid': newBid});
+        // and add a bidder key with the bidderName
+        await vehicleDocument.update({
+          'bid': newBid,
+          'bidder': username,
+        });
         print('Bid updated successfully.');
         return newBid;
       } else {
@@ -420,6 +429,63 @@ class FireStore {
       print('Error updating bid: $e');
       // Handle the error as needed
       return "null";
+    }
+  }
+
+  static Future<List<VehicalDetail>> searchVehiclesWithBid() async {
+    try {
+      // Reference to the "Active Vehicals" collection
+      CollectionReference vehiclesCollection =
+          FirebaseFirestore.instance.collection('Active Vehicals');
+
+      // Query vehicles where 'bid' attribute exists
+      QuerySnapshot querySnapshot = await vehiclesCollection
+          .where('bid', isNotEqualTo: null)
+          .where('status', isEqualTo: 'live')
+          .get();
+
+      // Process the documents in the snapshot
+      List<VehicalDetail> vehiclesWithBid = querySnapshot.docs
+          .map((DocumentSnapshot document) {
+            Map<String, dynamic>? data =
+                document.data() as Map<String, dynamic>?;
+
+            if (data != null && data.containsKey('bid')) {
+              // Convert 'bid' to int?
+              int? bid = data['bid'] != null ? int.tryParse(data['bid']) : null;
+
+              return VehicalDetail(
+                ownerName: data['ownerName'] ?? "",
+                number: data['number'] ?? "",
+                company: Company.values[data['company'] ?? 0],
+                model: BulletModel.values[data['model'] ?? 0],
+                estPrice: data['estPrice'] ?? "",
+                yearOfRelese: data['yearOfRelese'] ?? 0,
+                yearOfPurchase: data['yearOfPurchase'] ?? 0,
+                meterReading: data['meterReading'] ?? 0,
+                frontPhoto: data['frontPhoto'] ?? "",
+                sidePhoto: data['sidePhoto'] ?? "",
+                rearPhoto: data['rearPhoto'] ?? "",
+                tankPhoto: data['tankPhoto'] ?? "",
+                rcNumber: data['rcNumber'] ?? "",
+                insuranceNumber: data['insuranceNumber'] ?? "",
+                bid: bid,
+                vehicalId: document.id,
+                status: data['bid'] ?? '',
+              );
+            } else {
+              print(
+                  'Data in Firestore document is null or does not contain "bid".');
+              return null;
+            }
+          })
+          .whereType<VehicalDetail>() // Filter out null values
+          .toList();
+
+      return vehiclesWithBid;
+    } catch (e) {
+      print(e);
+      throw Exception('Error searching vehicles with bid: $e');
     }
   }
 }

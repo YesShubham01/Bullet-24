@@ -269,59 +269,42 @@ class _ItemPageState extends State<ItemPage> {
               const SizedBox(height: 16.0),
               Padding(
                 padding: const EdgeInsets.all(16.0),
-                child: CustomElevatedButton(
-                  ontap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: const Text("Confirmation"),
-                          actions: [
-                            Row(
-                              children: [
-                                Expanded(
-                                  child: CustomElevatedButton(
-                                    ontap: () {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) => BidPage(
-                                            vehicleId: widget
-                                                    .vehicalDetail.vehicalId ??
-                                                "error",
-                                            amount:
-                                                widget.vehicalDetail.estPrice ??
-                                                    "error",
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    text: "Bid",
-                                  ),
-                                ),
-                                const SizedBox(width: 8.0),
-                                Expanded(
-                                  child: CustomElevatedButton(
-                                    ontap: () {
-                                      Navigator.of(context).pushReplacement(
-                                        MaterialPageRoute(
-                                          builder: (context) => PaymentPage(
-                                            amount: convertStringToInt(
-                                                widget.vehicalDetail.estPrice!),
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    text: "Buy",
-                                  ),
-                                ),
-                              ],
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: CustomElevatedButton(
+                        ontap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => BidPage(
+                                vehicleId:
+                                    widget.vehicalDetail.vehicalId ?? "error",
+                                amount:
+                                    widget.vehicalDetail.estPrice ?? "error",
+                              ),
                             ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  text: "Buy now",
+                          );
+                        },
+                        text: "Bid",
+                      ),
+                    ),
+                    const SizedBox(width: 8.0),
+                    Expanded(
+                      child: CustomElevatedButton(
+                        ontap: () {
+                          Navigator.of(context).push(
+                            MaterialPageRoute(
+                              builder: (context) => PaymentPage(
+                                amount: convertStringToInt(
+                                    widget.vehicalDetail.estPrice!),
+                              ),
+                            ),
+                          );
+                        },
+                        text: "Buy",
+                      ),
+                    ),
+                  ],
                 ),
               ),
             ],

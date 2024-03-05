@@ -17,6 +17,7 @@ enum BulletModel {
 class VehicalDetail {
   VehicalDetail({
     required this.ownerName,
+    this.status = "pending",
     this.vehicalId,
     this.number,
     this.company,
@@ -34,13 +35,16 @@ class VehicalDetail {
     this.meterPhoto,
     this.rcPhoto,
     this.insurancePhoto,
+    this.bid,
   });
   String? vehicalId;
   String ownerName;
   String? number;
+  String status; // can be pending, live or sold
   Company? company;
   BulletModel? model;
   String? estPrice;
+  int? bid;
   int? yearOfRelese;
   int? yearOfPurchase;
   int? meterReading;

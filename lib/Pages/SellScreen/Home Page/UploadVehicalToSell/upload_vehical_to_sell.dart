@@ -4,7 +4,6 @@ import 'package:bullet24/Objects/user_detail.dart';
 import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query1.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query2.dart';
-import 'package:bullet24/Pages/SellScreen/Home%20Page/Estimate%20Price/Form%20pages/query3.dart';
 import 'package:bullet24/Pages/SellScreen/Home%20Page/UploadVehicalToSell/Detail%20Screens/result_detail.dart';
 import 'package:bullet24/Provider/my_provider.dart';
 import 'package:bullet24/Provider/query_page_provider.dart';

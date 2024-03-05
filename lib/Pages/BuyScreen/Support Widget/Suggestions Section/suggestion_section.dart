@@ -1,8 +1,10 @@
 import 'package:bullet24/Objects/vehical_detail.dart';
 import 'package:bullet24/Pages/BuyScreen/Support%20Widget/Suggestions%20Section/double_item_tiles.dart';
 import 'package:bullet24/Pages/BuyScreen/Support%20Widget/Suggestions%20Section/suggestion_title.dart';
+import 'package:bullet24/Provider/offline_data.dart';
 import 'package:bullet24/Services/FireStore%20Services/firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class SuggestionSection extends StatelessWidget {
   const SuggestionSection({Key? key}) : super(key: key);
@@ -11,7 +13,7 @@ class SuggestionSection extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        const SuggestionSectionTitle(),
+        const HomPageSectionTitle(title: "Suggestions"),
         // Use FutureBuilder to handle asynchronous data fetching
         FutureBuilder<List<VehicalDetail>>(
           future: FireStore.fetchAllVehicalDetails(),
@@ -28,6 +30,8 @@ class SuggestionSection extends StatelessWidget {
             } else {
               // Display DoubleVehicalItemTile for each item in suggestionList
               List<VehicalDetail> suggestionList = snapshot.data!;
+              context.read<AppData>().setCatalogue(suggestionList);
+
               return Column(
                 children: [
                   for (int i = 0; i < suggestionList.length; i += 2)
