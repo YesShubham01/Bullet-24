@@ -1,6 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="bullet24"
+        android:label="Bullet24"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
