@@ -10,9 +10,6 @@ https://www.figma.com/file/eUHTrq1mFy53ar0ckffluJ/Untitled?type=design&node-id=0
 https://drive.google.com/drive/folders/1aNJgIyd_qV5XUA2jnSGbBt8sTSqNoRQI?usp=drive_link
 
 
-![HomePage](https://github.com/YesShubham01/Bullet-24/assets/116451766/b41bcaaf-2b29-46fe-bef6-f6c079a83856)
-
-
 ### Getting Started
 
 This project is a starting point for a Flutter application.
